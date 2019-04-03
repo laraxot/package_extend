@@ -204,7 +204,7 @@ trait FilterTrait
 
     public static function filter($params)
     {
-        //dd('['.__LINE__.']['.__FILE__.']');
+        
         \ini_set('max_execution_time', 6000);
         \set_time_limit(0);
         $rows = new self();

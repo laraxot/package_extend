@@ -278,7 +278,7 @@ class ThemeService
         $path = self::getViewNameSpacePath($ns);
         /* 4 debug
         if(basename($path1)=='font-awesome.min.css'){
-            ddd('['.$path.']['.public_path('').']');
+            ddd('-['.$path.']['.public_path('').']');
         }
         //*/
         if (starts_with($path, public_path(''))) {

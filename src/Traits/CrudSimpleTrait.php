@@ -60,7 +60,7 @@ trait CrudSimpleTrait
             return ArtisanTrait::exe('route:list');
         }
         //if($request->scoutimport == 1){
-        //dd('['.__LINE__.']['.__FILE__.']');
+        
         //}
         $params = \Route::current()->parameters();
         if (isset($params['lang'])) {
@@ -521,7 +521,7 @@ trait CrudSimpleTrait
         } else {
             $row = $model->findOrFail($id);
         }
-        //dd('['.__LINE__.']['.__FILE__.']');
+        
         /*
         if ($request->input('__submit_cancel') != '') {
             Resource::freeResource($row);
@@ -551,12 +551,12 @@ trait CrudSimpleTrait
         //*/
         $row->save();
         //$row->update($request->all());
-        //dd('['.__LINE__.']['.__FILE__.']');
+        
         if ('model' == $request->_out) {
             return $row;
         }
 
-        //dd('['.__LINE__.']['.__FILE__.']');
+        
         \Session::flash('status', 'Risorsa salvata!');
         switch ($request->_action) {
             case 'save_continue': return redirect()->route(\str_replace('.update', '.edit', $routename), $params);
@@ -751,7 +751,7 @@ trait CrudSimpleTrait
         }
 
         $zipper->close();
-        //dd('['.__LINE__.']['.__FILE__.']');
+        
         if (\File::exists($zipPath)) {
             return \Response::download($zipPath);
         } else {

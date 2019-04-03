@@ -134,7 +134,7 @@ class XmlMenu_op
 
                         //echo '<pre>';print_r($route->parameters());echo '</pre>';
                         //}
-                        //dd('['.__LINE__.']['.__FILE__.']');
+                        
                         //dd($routeCollection);
                         // dd(\Route::dispatchToRoute(\Request::create('blog.post.index')));
                         //dd(\Request::route('blog.post.index')->getName());

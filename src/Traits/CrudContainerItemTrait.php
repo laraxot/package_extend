@@ -53,7 +53,6 @@ trait CrudContainerItemTrait
         if ($request->has('scoutimport')) { ScoutService::import(['model' => $row]);}
 
         if ($request->has('q') && ($request->ajax() || 1 == $request->ajax)) { //typeahead
-            //ddd($row);
             $start_time=microtime(true);
             $q = $request->input('q').'';
             /*
@@ -65,7 +64,6 @@ trait CrudContainerItemTrait
             */
             $rows=Post::ofSearch($q)->where('post_type',$row->post_type)->select('title')->distinct()->limit(10)->get();
             return $rows->toJson();
-            //ddd($rows->toJson());
             //return response($ris);
             //$ris=[['title'=>'titolo'],['title'=>'co']];
             $end_time=microtime(true);
@@ -97,7 +95,6 @@ trait CrudContainerItemTrait
 
         \extract($params);
         $model = $this->getModel();
-        //ddd($model);
         //$rows = $model;
         list($containers,$items)=$this->params2ContainerItem($params);
         $n_containers=count($containers);
@@ -106,9 +103,7 @@ trait CrudContainerItemTrait
         if($n_items==0){
             //$rows=$row->archive();
             $rows=$model->has('post')->with(['post']);//->paginate(20);//con post = 50, senza = 70
-            //ddd($rows->get());
                 
-            //ddd($mrows);
         }else{
             $types = str_plural($containers[$n_containers-1]->post_type);
             $types = camel_case($types);
