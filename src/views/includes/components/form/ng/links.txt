@@ -1,1 +1,0 @@
-https://ng-bootstrap.github.io/#/components/datepicker/examples
