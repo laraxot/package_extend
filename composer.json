@@ -1,0 +1,15 @@
+{
+  "name": "XRA/Extend",
+  "authors": [
+    {
+      "name": "Marco Xot",
+      "email": "marco.sottana@gmail.com",
+      "homepage" : "https://www.facebook.com/marco.xot",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "kriswallsmith/assetic": "^1.4@dev"
+  }
+}
