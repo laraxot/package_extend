@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+
+//use Illuminate\Contracts\View\Factory as ViewContract;
 //https://github.com/eusonlito/laravel-Packer
 //genealabs/laravel-model-caching
 use Assetic\Asset\AssetCache;
@@ -1298,7 +1300,7 @@ class ThemeService
         }//end switch
     }//end function
     
-    public static function cache($view,$data=[], $mergeData=[]){
+    public static function cache(/*ViewContract $vc,*/$view,$data=[], $mergeData=[]){
         //scopiazzato da spatie partialcache
         $cache_key=str_slug($view).'-'.md5(json_encode($data));
         $data['lang']=\App::getLocale();
