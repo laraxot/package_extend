@@ -115,6 +115,9 @@ class ArrayService
         if (!isset($out)) {
             return response()->download($pathToFile);
         }
+        if(!isset($text)){
+            $text='testo ';
+        }
         switch ($out) {
             case 'link': return view('extend::download_icon')->with('file', $pathToFile)->with('ext', 'xls')->with('text', $text);
             case 'download': response()->download($pathToFile);
