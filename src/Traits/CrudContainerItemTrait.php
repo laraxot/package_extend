@@ -500,6 +500,7 @@ trait CrudContainerItemTrait
     {
         $params = \Route::current()->parameters();
         $row = last($params);
+        $roots = Post::getRoots();
         if (\is_string($row)) {
             /*
             if($row=='edit'){
@@ -507,13 +508,17 @@ trait CrudContainerItemTrait
             }
             */
             //return abort(404);
+            $parz=$roots;
+            $parz['msg']='not found';
+            $parz['lang']=\App::getLocale();
+            $parz['params']=$params;
+            
             if (\View::exists('pub_theme::errors.404')) {
-                return response()->view('pub_theme::errors.404', ['msg' => 'not found', 'lang' => \App::getLocale(),'params'=>$params], 404);
+                return response()->view('pub_theme::errors.404', $parz, 404);
             } else {
-                return response()->view('errors.404', ['msg' => 'not found', 'lang' => \App::getLocale(),'params'=>$params], 404);
+                return response()->view('errors.404', $parz, 404);
             }
         }
-        $roots = Post::getRoots();
         ThemeService::setMetatags($row);
         ThemeService::addViewParam('row', $row)->addViewParam($roots);
 
