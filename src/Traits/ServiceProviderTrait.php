@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Gate;
 
 trait ServiceProviderTrait
 {
+    /** https://www.larashout.com/service-providers-in-laravel
+    * Indicates if loading of the provider is deferred.
+    *
+    * @var bool
+    */
+    //protected $defer = true;  mi da errore 500
     /**
      * Bootstrap the application services.
      */
