@@ -485,8 +485,9 @@ trait CrudContainerItemTrait
         $types=str_plural($container[$n_container-1]->post_type);
         $types=camel_case($types);
         $rows=$item[$n_item-1]->$types();
+        $rows=$rows->paginate(20);
         $roots = Post::getRoots();
-        return ThemeService::view()->with('rows',$rows->paginate(20))->with($roots);
+        return ThemeService::view()->with('rows',$rows)->with($roots);
     }
 
 

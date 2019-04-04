@@ -24,8 +24,9 @@ trait ServiceProviderTrait
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(\Illuminate\Routing\Router $router)
     {
+       
         //$this->registerPolicies();  //in fase di register legge la cartella policy modello pluto policy plutoPolicy
         $seg01 = (\Request::segment(1)); //il primo segmento potrebbe essere o lingua o admin
         if (\is_array(config('xra.languages'))) {
@@ -34,10 +35,11 @@ trait ServiceProviderTrait
             }
         }
 
-        $rc = new \ReflectionClass(__CLASS__);
+        $rc = new \ReflectionClass($this);
+        //ddd(get_class($this)->getFileName());
         $dir = \dirname($rc->getFileName());
 
-        $class = class_basename(__CLASS__);
+        $class = class_basename($this);
         $class = \str_replace('ServiceProvider', '', $class);
         $class = \mb_strtolower($class);
 
@@ -62,7 +64,7 @@ trait ServiceProviderTrait
         $this->loadTranslationsFrom($dir.'/translations', $class);
         //mergeConfigFrom($path, $key)
 
-        AliasLoader::getInstance()->alias($class, __CLASS__);
+        AliasLoader::getInstance()->alias($class, get_class($this));
         ///*
         //$this->files = new Filesystem;
         //if($this->files->exists($dir.'/config/'.$class.'.php')  ){
@@ -210,7 +212,7 @@ trait ServiceProviderTrait
      */
     public function register()
     {
-        $rc = new \ReflectionClass(__CLASS__);
+        $rc = new \ReflectionClass(get_class($this));
         $dir = \dirname($rc->getFileName());
 
         
@@ -293,7 +295,7 @@ trait ServiceProviderTrait
 
     public function getMenuXml()
     {
-        $rc = new \ReflectionClass(__CLASS__);
+        $rc = new \ReflectionClass(\get_class($this));
         $dir = \dirname($rc->getFileName());
         $menu_dir = $dir.\DIRECTORY_SEPARATOR.'_menuxml'.\DIRECTORY_SEPARATOR.'admin';
 
