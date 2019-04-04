@@ -27,19 +27,16 @@ trait ReportMeseAnnoTrait
         $params['tipo'] = 1;
         $rows = $model->filter($params)->get();
         $rows = $rows->toArray();
-        //echo '['.__LINE__.']['.__FILE__.']<pre>';print_r($rows);echo '</pre>';
         $rows1 = Array_op::array_raggruppa(['data' => $rows, 'key' => ['ente', 'matr']]);
         \reset($rows1);
         foreach ($rows1 as $k => $v) {
             $rows1[$k] = Array_op::array_raggruppa(['data' => $v, 'key' => ['last_stato']]);
         }
 
-        //echo '['.__LINE__.']['.__FILE__.']<pre>';print_r($rows1);echo '</pre>';
         $subtot = Array_op::array_subtotale([
         'data' => $rows, 'key' => ['ente', 'matr'], 'add' => $model->getAddFields(), 'fields' => ['nome'],
     ]);
 
-        //echo '['.__LINE__.']['.__FILE__.']<pre>';print_r($subtot);echo '</pre>'; die();
 
         $view = ThemeService::getView();
 

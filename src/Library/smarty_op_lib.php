@@ -12,7 +12,6 @@ class SMARTY_OP extends baseController
             if (!isset($matches[1])) {
                 return $content;
             }
-            //echo '['.__LINE__.']['.__FILE__.']<pre>'; print_r($matches); echo '</pre>';
             $tmp = \explode(' ', $matches[1]);
             \reset($tmp);
             $data = [];

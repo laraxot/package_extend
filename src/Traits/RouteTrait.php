@@ -41,7 +41,6 @@ trait RouteTrait
             if (false !== \mb_strpos($v['as'], '{')) {
                 $v['as'] = null; //dd('non ci sono');
             }
-            //echo '['.($namespace).' = '.$v['namespace'] .']';
             if (false !== \mb_strpos($v['prefix'], '{')) {
                 $v['namespace'] = null;
             }

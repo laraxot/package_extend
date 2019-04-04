@@ -10,7 +10,6 @@
         } else {
             $val1=\Carbon\Carbon::now()->formatLocalized('%d/%m/%Y %I:%M %p');
         }
-        //echo '['.__LINE__.']['.__FILE__.']<hr/>'.$val1.'<hr/>';
         //echo '<br/>' . \Carbon\Carbon::createFromFormat('Y-m-d',$val)->formatLocalized('%d/%m/%Y');
         //echo '<br/>'.$value;
         //echo '<br/>'.\Carbon\Carbon::createFromFormat('Y-m-d H:i:s','2017-01-01 13:23:22');

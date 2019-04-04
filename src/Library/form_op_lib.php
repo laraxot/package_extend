@@ -603,8 +603,6 @@ class FORM_OP extends baseController
         }
         for ($i = 0; $i < 3; ++$i) {
             $time = \mktime(0, 0, 0, \date('m') - $i, \date('d'), \date('Y'));
-            //echo '['.date('m-Y', $time).']';
-            //$form = new HTML_QuickForm('scegliDipendentiForm', 'post', $_SERVER['REQUEST_URI']);
             $form = new HTML_QuickForm('scelta'.$i, 'post', $_SERVER['REQUEST_URI']);
             $form->setConstants([
             'anno' => \date('Y', $time) * 1,

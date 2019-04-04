@@ -346,7 +346,6 @@ class DO_OP extends baseController
         $this->primary_key = $keys[0];
         $this->registry->template->__set('primary_key', $keys[0]);
 
-        //echo '['.$this->primary_key.']';
         $fb = array();
         $form = $this->__get('form');
         $i = 0;

@@ -33,7 +33,7 @@ class ImageService
         }
 
         if (!\File::exists($image_path)) {
-            //echo '['.__LINE__.']['.__FILE__.']';
+            
 
             //return false;
         }

@@ -419,8 +419,6 @@ class HTML_OP extends baseController
             $pos0 = \mb_strripos($tmp, $str0);
             //echo '<br/>pos0: '.$pos0;
             $tmp = \mb_substr($tmp, $pos0);
-            //echo '['.$pos0.']['.$pos1.']<br/>';
-            //echo $tmp;
             return $tmp;
         }
 

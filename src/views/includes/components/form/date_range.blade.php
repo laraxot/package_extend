@@ -19,7 +19,6 @@ $name=$start_name.'__'.$end_name;
 
 		if(is_string($end_val)){
 
-			//echo '['.$end_val.']';
 			$end_val_carbon=\Carbon\Carbon::parse(trim($end_val))->formatLocalized('%d/%m/%Y');
 			//$end_val_carbon=$end_val;
 		}else{

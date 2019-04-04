@@ -32,7 +32,6 @@ trait RouteTrait{
             if(strpos($v['as'],'{')!==false){
                 $v['as']=null;//dd('non ci sono');
             }
-             //echo '['.($namespace).' = '.$v['namespace'] .']';
             if(strpos($v['prefix'],'{')!==false){
                 $v['namespace']=null;
             }
