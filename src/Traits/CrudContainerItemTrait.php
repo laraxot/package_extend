@@ -49,9 +49,7 @@ trait CrudContainerItemTrait
     }
 
 
-    public function index(Request $request)
-    {
-        ddd(__FUNCTION__);
+    public function index(Request $request){
         if ($request->act=='routelist') { return ArtisanTrait::exe('route:list');  }
         $params = \Route::current()->parameters();
         if (isset($params['lang'])) { \App::setLocale($params['lang']); }
