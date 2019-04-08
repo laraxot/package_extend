@@ -15,6 +15,12 @@ trait CrudContainerItemTrait
 {
     private $optionalParams = [];
 
+    /*
+    public function __construct(){
+        ddd('preso');
+    }
+    */
+
     public function getModel()
     {
 
@@ -45,7 +51,7 @@ trait CrudContainerItemTrait
 
     public function index(Request $request)
     {
-
+        ddd(__FUNCTION__);
         if ($request->act=='routelist') { return ArtisanTrait::exe('route:list');  }
         $params = \Route::current()->parameters();
         if (isset($params['lang'])) { \App::setLocale($params['lang']); }
@@ -177,8 +183,7 @@ trait CrudContainerItemTrait
         */
     }
 
-    public function edit(Request $request)
-    {
+    public function edit(Request $request){
         if (1 == $request->replicate) { // da passare in act 
             return $this->replicate($request);
         }
@@ -211,8 +216,7 @@ trait CrudContainerItemTrait
 
     //end edit
 
-    public function update(Request $request)
-    {
+    public function update(Request $request){
         $params = \Route::current()->parameters();
         $lang = \App::getLocale();
         \extract($params);
@@ -286,8 +290,7 @@ trait CrudContainerItemTrait
         return $empty;
     }
 
-    public function create(Request $request)
-    {
+    public function create(Request $request){
         $params = \Route::current()->parameters();
         if (isset($params['lang'])) {
             \App::setLocale($params['lang']);
@@ -315,8 +318,7 @@ trait CrudContainerItemTrait
             ->view();
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $params = \Route::current()->parameters();
         $routename = \Route::current()->getName();
         
@@ -387,73 +389,7 @@ trait CrudContainerItemTrait
         return ThemeService::action($request,$row);
        
     }
-    /* spostato in themeservice 
-    public static function action(Request $request)
-    {
-        $routename = \Route::current()->getName();
-        $params = \Route::current()->parameters();
-        $data = $request->all();
-        switch ($data['_action']) {
-            case 'save_continue':
-                $routename = \str_replace('.store', '.edit', $routename);
-                if (!isset($params['item0'])) {
-                    $params['item0'] = $empty;
-                }
-                if (!isset($params['item1'])) {
-                    $params['item1'] = $empty;
-                }
-                if (!isset($params['item2'])) {
-                    $params['item2'] = $empty;
-                }
-                if (!isset($params['item3'])) {
-                    $params['item3'] = $empty;
-                }
-
-                return redirect()->route($routename, $params);
-                break;
-            case 'save_close':
-                $routename = \str_replace('.store', '.index', $routename);
-
-                return redirect()->route($routename, $params);
-                break;
-            case 'nextstep':
-                //$step=request()->input('step',1);
-                $params['step'] = $step + 1;
-                $routename = \str_replace('.store', '.create', $routename);
-
-                return redirect()->route($routename, $params);
-                break;
-            case 'come_back':
-                return redirect()->back();
-                break;
-            case 'row':
-                return $empty;
-                break;
-            default:
-
-                echo '<h3>['.__LINE__.']['.__FILE__.']</h3>';
-                ddd($data['_action']);
-                break;
-        }
-    }
-    */
-    /*-- diventa indexEdit
-    public function editContainer(Request $request){
-        $view=ThemeService::getView();
-        //restituisce pub_theme::restaurant.photo.show
-        //quello che dovrei vedere e' pub_theme::restaurant.photo.index_edit
-        $str='.show';
-        if(!ends_with($view,$str)){
-            ddd('to fix');
-        }
-        $view=substr($view, 0,-strlen($str)).'.index_edit';
-        return ThemeService::view($view);
-    }
-
-
-
-    //*/
-
+    
     public function params2ContainerItem($params){
         $container=[];
         $item=[];
@@ -470,7 +406,6 @@ trait CrudContainerItemTrait
     }
 
     public function indexEdit(Request $request){
-         
         $params = \Route::current()->parameters();
         $row = last($params);
         if (!\Auth::check() || \Auth::user()->cannot(__FUNCTION__, $row)) {
@@ -492,8 +427,7 @@ trait CrudContainerItemTrait
 
 
 
-    public function show(Request $request)
-    {
+    public function show(Request $request){
         $params = \Route::current()->parameters();
         $row = last($params);
         $roots = Post::getRoots();
