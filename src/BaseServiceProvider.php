@@ -7,9 +7,9 @@ use XRA\Extend\Traits\ServiceProviderTrait;
 
 abstract class BaseServiceProvider 
 		extends ServiceProvider 
-	//	implements DeferrableProvider
+		implements DeferrableProvider
 {
 	use ServiceProviderTrait;
 
-    //protected $defer = true;
+    protected $defer = true;
 }
