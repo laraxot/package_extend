@@ -63,7 +63,6 @@ trait ServiceProviderTrait
         }
         $this->loadTranslationsFrom($dir.'/translations', $class);
         //mergeConfigFrom($path, $key)
-
         AliasLoader::getInstance()->alias($class, get_class($this));
         ///*
         //$this->files = new Filesystem;
