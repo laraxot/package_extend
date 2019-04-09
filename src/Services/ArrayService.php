@@ -401,4 +401,15 @@ class ArrayService
         return false;
     }
 
+    function save($params){
+        \extract($params);
+        $writer = new Zend\Config\Writer\PhpArray();
+        $content = $writer->toString($data);
+        $content = \str_replace('\\\\', '\\', $content);
+        $content = \str_replace('\\\\', '\\', $content);
+        //$content=str_replace("\\'","\'", $content);
+        $content = \str_replace("'".storage_path(), 'storage_path()'.".'", $content);
+        \File::put($filename, $content);
+    }
+
 }//end class
