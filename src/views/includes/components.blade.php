@@ -147,7 +147,7 @@ Form::macro('bsBtnEdit', function ($extra, $from='index', $to='edit') {
     if($user==null) return '';
     extract($extra);
     if (!$user->can('edit', $row)){
-        return '[not can edit '.$row->post_type.']';
+        return '[not can edit '.get_class($row).']';
     }
     //return '['.$row->title.']['.isset($row->pivot).']';
     $route=$row->edit_url;
