@@ -347,8 +347,9 @@ trait CrudContainerItemTrait
             if (!\is_array($pivot_var)) {
                 $pivot_var = [];
             }
-            $pivot_var['related_type']=$row->post_type;
-            $pivot_var['type']= $second_last->post_type.'_x_'.$row->post_type; //retrocompatibilità
+            $related_type=collect(config('xra.model'))->search(get_class($row));
+            $pivot_var['related_type']=$related_type;
+            //$pivot_var['type']= $second_last->post_type.'_x_'.$row->post_type; //retrocompatibilità iniziamo a toglierla
             //ddd($row);
             $pivot=$second_last->morphRelated($row->getModel())->attach($row->post_id,$pivot_var);
         }
