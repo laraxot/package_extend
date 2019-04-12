@@ -424,6 +424,28 @@ trait CrudContainerItemTrait
         return ThemeService::view()->with('rows',$rows)->with($roots);
     }
 
+    public function indexOrder(Request $request){
+        $params = \Route::current()->parameters();
+        $row = last($params);
+        /*
+        if (!\Auth::check() || \Auth::user()->cannot(__FUNCTION__, $row)) {
+            $routename = \Route::current()->getName();
+            $route_next=str_replace('.index_edit','.index',$routename);
+            return redirect()->route($route_next,$params);
+        }
+        */
+        list($container,$item)=$this->params2ContainerItem($params);
+        $n_container=count($container);
+        $n_item=count($item);
+
+        $types=str_plural($container[$n_container-1]->post_type);
+        $types=camel_case($types);
+        $rows=$item[$n_item-1]->$types();
+        $rows=$rows->paginate(20);
+        $roots = Post::getRoots();
+        return ThemeService::view()->with('rows',$rows)->with($roots);
+    }
+
 
 
     public function show(Request $request){
