@@ -1260,6 +1260,9 @@ class ThemeService
         //ddd($rotename_arr);
         $params = \Route::current()->parameters();
         $data = $request->all();
+        if(!isset($data['_action'])){
+            $data['_action']='save_close';
+        }
         switch ($data['_action']) {
             case 'save_continue':
                 //$this->routes->getByName($name)
