@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace XRA\Extend\Library;
 
 class Array_op /* extends baseController */
