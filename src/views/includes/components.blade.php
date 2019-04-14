@@ -30,7 +30,7 @@
     if(!File::exists($view_path.'/_components.json')){
         $files = File::allFiles($view_path);
         $comps=[];
-        foreach($files as $file){ 
+        foreach($files as $file){
             $filename=$file->getRelativePathname();
             //ddd($file->getPath());///home/vagrant/code/food/laravel/packages/XRA/Extend/src/views/includes/components/form"
             $ext='.blade.php';
@@ -40,7 +40,7 @@
                 $name='bs'.studly_case($name);
 
                 //$comp_view=str_replace('/','.',$base);
-                //echo '<br/>'.$base.'  --- '.$name.'  --  '.$comp_view; 
+                //echo '<br/>'.$base.'  --- '.$name.'  --  '.$comp_view;
                 $comp_view=str_replace(DIRECTORY_SEPARATOR,'.',$base);
                 //echo '<br/>'.$base.'  --- '.$name.'  --  '.$comp_view;
                 $comp_view='extend::includes.components.form.'.$comp_view;
@@ -71,12 +71,12 @@
                     ['name', 'value' => null,'attributes' => [],'lang'=>$lang,
                     'comp_view'=>$comp->view,
                     'comp_dir'=>$comp->dir,
-                    'blade_component'=>$blade_component]);    
+                    'blade_component'=>$blade_component]);
     }
 
 
-    
-    
+
+
     //---------- ShortCuts -------
     /*
     Form::component('bsHtml5UploadImg', 'extend::includes.components.form.html5upload.upload',
@@ -189,7 +189,7 @@ Form::macro('bsBtnDelete', function ($extra) {
     $routename=Request::route()->getName();
     $routename=str_replace('.index_edit', '.destroy',$routename );
     $routename=str_replace('.index', '.destroy',$routename );
-    
+
     //-----------
     $id=$row->getKey();
     //$id=array_values($extra)[0];
@@ -284,7 +284,7 @@ Form::macro('bsBtnUpDown',function ($extra){
 
 
 
-Form::macro('bsBtnCreate', function ($extra=[]) {
+Form::macro('bsBtnCreate', function ($txt, $extra=[]) {
     $user=\Auth::user();
     if($user==null) return '';
     //*
@@ -295,7 +295,7 @@ Form::macro('bsBtnCreate', function ($extra=[]) {
     }
     //*/
      //---default var ---
-     $txt='Nuova ';
+     //$txt='Nuova ';
      $params=[];
      extract($extra);
      $routename=str_replace('.index', '.create', Request::route()->getName());
