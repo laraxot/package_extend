@@ -284,7 +284,7 @@ Form::macro('bsBtnUpDown',function ($extra){
 
 
 
-Form::macro('bsBtnCreate', function ($txt, $extra=[]) {
+Form::macro('bsBtnCreate', function ($extra=[]) {
     $user=\Auth::user();
     if($user==null) return '';
     //*
