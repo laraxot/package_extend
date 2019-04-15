@@ -18,7 +18,8 @@
         "phpoffice/phpspreadsheet": "^1.6",
         "ptachoire/cssembed": "^1.0",
         "spipu/html2pdf": "^5.2",
-        "twig/twig": "^2.7"
+        "twig/twig": "^2.7",
+        "zendframework/zend-config": "^3.2"
     },
     "config": {
         "preferred-install": "dist",

@@ -81,6 +81,15 @@ class ThemeService
         return [];
     }
 
+    public static function get_langs($params)
+    {
+        $cache_key=str_slug($_SERVER['REQUEST_URI'].'_langs');
+        $langs=Cache::get($cache_key);
+        if(!is_array($langs)) $langs=[];
+        return $langs;
+    }
+
+
     public static function get_scripts_pos($params)
     {
         return [];

@@ -401,9 +401,11 @@ class ArrayService
         return false;
     }
 
-    function save($params){
+    public static function save($params){
+        require_once(__DIR__.'/vendor/autoload.php');
         \extract($params);
-        $writer = new Zend\Config\Writer\PhpArray();
+        $writer = new \Zend\Config\Writer\PhpArray();
+        $writer->setUseBracketArraySyntax(true);
         $content = $writer->toString($data);
         $content = \str_replace('\\\\', '\\', $content);
         $content = \str_replace('\\\\', '\\', $content);
