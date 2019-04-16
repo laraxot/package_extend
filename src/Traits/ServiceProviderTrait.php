@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace XRA\Extend\Traits;
 
 use Illuminate\Filesystem\Filesystem;
