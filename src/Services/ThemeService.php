@@ -1167,7 +1167,6 @@ class ThemeService
         if (\Request::ajax()) {
             $view .= '_ajax';
         }
-
         return $view;
 
 
@@ -1210,7 +1209,10 @@ class ThemeService
         if(\in_admin()){
             $view_default='adm_theme::layouts.default.'.$act;
         }else{
-            $view_default='pub_theme::layouts.default.'.$act;
+            $view_default='pub_theme::layouts.default.'.$act; //pub_theme o extend ?
+        }
+        if (\Request::ajax()) {
+            $view_default .= '_ajax';
         }
         $use_default=false;
         if($view==null){
