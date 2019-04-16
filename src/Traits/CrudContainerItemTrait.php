@@ -427,6 +427,7 @@ trait CrudContainerItemTrait
     public function indexOrder(Request $request){
         $params = \Route::current()->parameters();
         $row = last($params);
+       
         /*
         if (!\Auth::check() || \Auth::user()->cannot(__FUNCTION__, $row)) {
             $routename = \Route::current()->getName();
@@ -441,9 +442,31 @@ trait CrudContainerItemTrait
         $types=str_plural($container[$n_container-1]->post_type);
         $types=camel_case($types);
         $rows=$item[$n_item-1]->$types();
-        $rows=$rows->paginate(20);
+        $rows=$rows->get(); //non ha senso mettere la paginazione
+        if($request->getMethod()=='POST'){
+            $order_arr=explode('|',$request->order_list);
+            foreach($order_arr as $k=>$v){
+                $up=$rows->where('post_id',$v)->first();
+                $up->pivot->pos=$k+1;
+                $up->pivot->save();
+                //dd($k+1);
+            }
+            if (\Request::ajax()) {
+                $response = [
+                    'success' => true,
+                    //'data'    => $result,
+                    'message' => 'OK',
+                ];
+                $response = \array_merge($data, $response);
+
+                return response()->json($response, 200);
+            }
+        }
+
+
+        $order_list=$rows->pluck('post_id')->implode('|');
         $roots = Post::getRoots();
-        return ThemeService::view()->with('rows',$rows)->with($roots);
+        return ThemeService::view()->with('rows',$rows)->with($roots)->with('order_list',$order_list);
     }
 
 

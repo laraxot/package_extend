@@ -83,7 +83,9 @@ class ThemeService
 
     public static function get_langs($params)
     {
-        $cache_key=str_slug($_SERVER['REQUEST_URI'].'_langs');
+        $uri=(\Request::has('uri'))?\Request::input('uri'):$_SERVER['REQUEST_URI'];
+        
+        $cache_key=str_slug($uri.'_langs');
         $langs=Cache::get($cache_key);
         if(!is_array($langs)) $langs=[];
         return $langs;
