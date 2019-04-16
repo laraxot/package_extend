@@ -1,6 +1,8 @@
 <?php
 namespace XRA\Extend\Library;
 
+use XRA\Extend\Services\ArrayService;
+
 class Array_op /* extends baseController */
 {
     public static function array_tree($array, $padre = 0)
@@ -1178,7 +1180,11 @@ class Array_op /* extends baseController */
     }
 
     //*/
-    public static function toXLS($params)
+    public static function toXLS($params){
+        return ArrayService::toXLS($params);
+    }
+
+    public static function toXLS_phpexcel($params)
     {
         \Debugbar::disable();
         $objPHPExcel = new \PHPExcel();
