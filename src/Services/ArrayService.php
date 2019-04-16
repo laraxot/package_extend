@@ -23,9 +23,15 @@ class ArrayService
     public static function toXLS_phpoffice($params)
     {
         \extract($params);
+        if(!is_array($data)){
+            $data=[];
+        }
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $firstrow = collect($data)->first();
+        if(!is_array($firstrow)){
+            $firstrow=[];
+        }
         $sheet->fromArray(\array_keys($firstrow), null, 'A1');
         $sheet->fromArray(
             $data,  	// The data to set
