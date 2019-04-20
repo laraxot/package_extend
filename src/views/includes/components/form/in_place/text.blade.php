@@ -6,4 +6,4 @@
     Theme::add('/theme/bc/sweetalert2/dist/sweetalert2.css');
     Theme::add('/theme/bc/sweetalert2/dist/sweetalert2.min.js');
 @endphp
-<p class="editinplace col-lg-8" style="float:left;" data-url="{{ $model->update_url }}" data-field="{{ $name }}" data-prev-value="" data-null-error="{{ $alertError }}">{{ $value }}</p>
+<p class="editinplace col-lg-8" style="float:left;" data-url="{{ $model->update_url }}" data-field="{{ $name }}" data-prev-value="" data-null-error="{{ $alertError }}">{{ number_format((int)$value, 2, ',', '.') }}</p>
