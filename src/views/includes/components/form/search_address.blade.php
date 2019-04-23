@@ -1,4 +1,6 @@
 @php
+	//Theme::add('theme/bc/popper.js/dist/popper.js');
+	Theme::add('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js');
 	if(isset($attributes['label']))
 		$label=$attributes['label'];
 	else
@@ -56,15 +58,22 @@
 				showPopoverMessage( '#autocomplete', 'Inserisci un indirizzo completo', 'top' );	
 				e.preventDefault();return false;
 			}
+			if($('input[name="lat"]').val()==''){
+				showPopoverMessage( '#autocomplete', 'Inserisci non riconosciuto', 'top' );	
+				e.preventDefault();return false;
+			}
+			/*
 			if($('input[name="address"]').val()==''){
 				showPopoverMessage( '#autocomplete', 'Inserisci un indirizzo completo', 'top' );	
 				e.preventDefault();return false;
 			}
+			*/
+			/*
 			if($('input[name="street_number"]').val()==''){
 				showPopoverMessage( '#autocomplete', 'Manca numero civico', 'top' );	
 				e.preventDefault();return false;
 			}
-			
+			*/
 			//return false;
 			
 			//$("#addressform").trigger( 'submit' );
