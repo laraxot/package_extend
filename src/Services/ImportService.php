@@ -1,7 +1,9 @@
 <?php
 namespace XRA\Extend\Services;
 
-use Cache;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Cookie\FileCookieJar;
@@ -72,7 +74,7 @@ class ImportService
         Upgrade-Insecure-Requests: 1
         */
         //ddd($headers);
-        self::enableRedirect();
+        //self::enableRedirect();
         self::$client_options['headers'] = $headers;
         self::$client_options['headers']['Referer'] = 'http://www.google.com';
         self::$client_options['cookies'] = self::$cookieJar;
@@ -181,6 +183,11 @@ class ImportService
             }
         }
 
+        $base_uri=self::$client_options['base_uri'];
+        if(Str::startsWith($url,$base_uri)){
+            $url=substr($url, strlen($base_uri));
+        }
+
         try {
             $res = self::$client->request($method, $url, \array_merge(self::$client_options, $attrs));
         } catch (GuzzleException $e) {
@@ -261,7 +268,7 @@ class ImportService
     {
         $key = \json_encode(['method' => $method, 'url' => $url, 'attrs' => $attrs]);
         $key .= '_1';
-        $value = Cache::rememberForever($key, function () use ($method,$url,$attrs) {
+        $value = Cache::store('file')->rememberForever($key, function () use ($method,$url,$attrs) {
             $res = self::gRequest($method, $url, $attrs);
             if (isset($res->is_error)) {
                 return null;

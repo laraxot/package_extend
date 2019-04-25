@@ -43,13 +43,13 @@ trait CrudSimpleTrait
         return new $model();
     }
 
-    public function getPrimaryKey()
-    {
-        $class = class_basename(__CLASS__);
+    public function getPrimaryKey(){
+        //$class = class_basename(__CLASS__);
+        $class = class_basename($this);
         $class = \str_replace('Controller', '', $class);
         $class = \mb_strtolower($class);
-
-        return 'id_'.$class;
+        $pk='id_'.$class;
+        return $pk;
     }
 
     
@@ -395,7 +395,6 @@ trait CrudSimpleTrait
         if (1 == $request->replicate) {
             return $this->replicate($request);
         }
-
         $params = \Route::current()->parameters();
         $params_key = \array_map('strtolower', \array_keys($params));
         $params_value = \array_values($params);
@@ -444,6 +443,7 @@ trait CrudSimpleTrait
         if (isset($params['lang']) && \in_array('lang', $model->fields()->all(), true)) {
             $model = $model->where('lang', $params['lang']);
         }
+        //ddd($model);
         $row = $model->findOrFail($pk_val);
 
         /*
