@@ -74,7 +74,7 @@ class ImportService
         Upgrade-Insecure-Requests: 1
         */
         //ddd($headers);
-        //self::enableRedirect();
+        self::enableRedirect();
         self::$client_options['headers'] = $headers;
         self::$client_options['headers']['Referer'] = 'http://www.google.com';
         self::$client_options['cookies'] = self::$cookieJar;
@@ -92,7 +92,7 @@ class ImportService
         $proxy = [
             //'http'  => 'tcp://127.0.0.1:8888', // Use this proxy with "http"
             //'https' => 'tcp://127.0.0.1:8888', // Use this proxy with "https",
-               'http' => 'http://127.0.0.1:8888', // Use this proxy with "http"
+            'http' => 'http://127.0.0.1:8888', // Use this proxy with "http"
             'https' => 'https://127.0.0.1:8888', // Use this proxy with "https",
 
             //'no' => ['.mit.edu', 'foo.com']    // Don't use a proxy with these
@@ -167,6 +167,10 @@ class ImportService
         $res = $this->client->request($method, $url, \array_merge($this->client_options, $attrs));
 
         return $res->getHeaderLine('X-Guzzle-Redirect-History');
+    }
+
+    public static function jqueryRequest($method, $url, $attrs = []){
+        return view('extend::jquery_request');
     }
 
     public static function gRequest($method, $url, $attrs = [], $out = 'res')
@@ -264,10 +268,15 @@ class ImportService
         return self::gRequest($form->getMethod(), $form->getUri(), ['form_params' => $vars], $out);
     }
 
-    public static function cacheRequest($method, $url, $attrs = [])
-    {
+    public static function getCacheKey($method, $url, $attrs = []){
         $key = \json_encode(['method' => $method, 'url' => $url, 'attrs' => $attrs]);
         $key .= '_1';
+        return $key;
+    }
+
+    public static function cacheRequest($method, $url, $attrs = [])
+    {
+        $key=self::getCacheKey($method, $url, $attrs = []);
         $value = Cache::store('file')->rememberForever($key, function () use ($method,$url,$attrs) {
             $res = self::gRequest($method, $url, $attrs);
             if (isset($res->is_error)) {
