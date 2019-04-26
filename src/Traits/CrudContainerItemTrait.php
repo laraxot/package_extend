@@ -159,7 +159,7 @@ trait CrudContainerItemTrait
         }
         $mrows=[];
         $allrows = $rows;
-        $rows = $rows->paginate(20);
+        $rows = $rows->groupBy('guid')->paginate(20);
         if($model->post_type=='restaurant'){
             $rows->load(['cuisineCats']); // con cuisineCats = 15 senza = 47
         }
