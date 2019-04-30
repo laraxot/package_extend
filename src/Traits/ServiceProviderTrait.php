@@ -20,7 +20,7 @@ trait ServiceProviderTrait
     //protected $defer = true;  mi da errore 500
     /**
      * Bootstrap the application services.
-     */
+     */ 
     public function boot(\Illuminate\Routing\Router $router)
     {
        
