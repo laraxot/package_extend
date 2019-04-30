@@ -43,8 +43,14 @@ $item0 = [
     ], //end acts
 ];
 
+
+$translation=[
+    'name'=>'translation',
+];
+
 $areas_prgs = [
     $item0,
+    $translation,
 ];
 //,'middleware' => ['web','auth']
 $prefix = App::getLocale();
