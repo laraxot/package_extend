@@ -1,9 +1,7 @@
 <?php
-
-
-
 namespace XRA\Extend\Services;
 
+use Illuminate\Support\Str;
 use Cache;
 use ImageOptimizer;
 use Intervention\Image\Facades\Image;
@@ -12,6 +10,58 @@ use Intervention\Image\Facades\Image;
 
 class ImageService
 {
+    private static $_instance = null;
+    static $img=null,$width,$height,$src,$filename;
+
+
+    public function __construct($params=[]){
+        $this->init($params);
+    }
+
+    //---- setter
+    public static function init($params){
+        foreach($params as $k=>$v){
+            $func='set'.Str::studly($k);
+            self::$func($v);
+        }
+    }
+
+    public static function setImg($val){
+        self::$img = Image::make($val);
+    }
+
+    public static function setWxh($val){
+        list($w, $h) = \explode('x', $val);
+        self::setWidth($w);
+        self::setHeight($h);
+        
+    }
+
+    public static function setWidth($val){
+        self::$width=$val;
+    }
+
+    public static function setHeight($val){
+        self::$height=$val;
+    }
+    
+     public static function setSrc($val){
+        if(starts_with($val,url(''))){ //se e' una immagine locale
+            $val=public_path(\substr($val,strlen(url(''))));
+        }
+        self::$src=$val;
+        self::setImg($val);
+    }
+    //----------
+
+    public static function getInstance($params=[]){
+        if (null === self::$_instance) {
+            self::$_instance = new self($params);
+        }
+
+        return self::$_instance;
+    }
+
     public static function toHtml()
     {
     }
@@ -79,6 +129,74 @@ class ImageService
         //app(Spatie\ImageOptimizer\OptimizerChain::class)->optimize(public_path($image_resized));
         return $image_resized;
     }
+
+    
+
+
+    public static function crop($params=[]){
+        $me=self::getInstance($params);
+        
+        $img    =self::$img;
+        $width  =self::$width;
+        $height =self::$height;
+        
+
+        if($width>$height){
+
+            $img->resize($width, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            if ($img->height() > $height) {
+                /* //voglio croppare l'immagine per non lasciare bordi brutti
+                    $img->resize(null, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                */
+                $x0 = 0;
+                //$y0 = \rand(0, $img->height() - $height);
+                $y0 = ($img->height() + $height)/2;
+                $img->crop($width, $height, $x0, $y0);
+            }
+        }else{
+            $img->resize(null,$height, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            if ($img->width() > $width) {
+                /* //voglio croppare l'immagine per non lasciare bordi brutti
+                    $img->resize(null, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                */
+                //$x0 = \rand(0, $img->width() - $width);
+                $x0 = ($img->width() + $width)/2;
+                $y0 = 0;
+                $img->crop($width, $height, $x0, $y0);
+            }
+        }
+        $w0 = $img->width();
+        $h0 = $img->height();
+        $canvas = Image::canvas($width, $height, '#fdfdfd');
+        $x = \round(($width - $w0) / 2, 0);
+        $y = \round(($height - $h0) / 2, 0);
+        $canvas->insert($img, null, $x, $y);
+        self::$img=$canvas;
+        return self::getInstance(); /// per il fluent, o chaining
+    }
+
+    public static function save($params=[]){
+        //extract($params);
+        self::$filename=public_path('/imgz/'.self::$width.'x'.self::$height.'/'.basename(self::$src));
+        \File::makeDirectory(\dirname(self::$filename), 0775, true, true);
+        $r=self::$img->save(self::$filename, 75);
+        return self::getInstance();
+    }
+
+    public static function out($params=[]){
+        return self::$img->encode('jpg', 60);
+    }
+
 
     public static function image_resized_canvas($params)
     {

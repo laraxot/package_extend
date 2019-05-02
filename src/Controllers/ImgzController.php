@@ -2,9 +2,11 @@
 namespace XRA\Extend\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use File;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
+use XRA\Extend\Services\ImageService;
 use XRA\Extend\Services\ThemeService;
 
 class ImgzController extends Controller
@@ -132,5 +134,26 @@ class ImgzController extends Controller
 
         return response()->json($response);
         //print json_encode($response);
+    }
+
+
+    public function show(Request $request){
+        $params = \Route::current()->parameters();
+        $cache_key=md5($_SERVER['SERVER_NAME'].'_'.json_encode($params));
+        $seconds=60*60*24*7;
+        $out = Cache::store('file')->remember($cache_key, $seconds,function () use($params){
+            $params['src']=str_replace('|','/',$params['src']);
+            \extract($params);
+            list($w, $h) = \explode('x', $wxh);
+            \Debugbar::disable();
+            $out=ImageService::crop($params)->out();
+            return $out;
+        });
+
+        header('Content-Type: image/jpeg');
+        header("Content-Length: " . strlen($out));
+        return (string)$out;
+        //ddd($params);
+        //$row=Image::where('src',$src)->where('w',$w)->where('h',$h);
     }
 }//end class

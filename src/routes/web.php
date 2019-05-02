@@ -66,4 +66,27 @@ Route::group(
     }
 );
 
+
+$item1=[
+    'name'=>'Imgz',
+    'param_name'=>['wxh','src'],
+    'only'=>['show'],
+];
+
+$areas_prgs = [
+    $item1
+];
+
+Route::group(
+    [
+        'prefix' => null,
+        'middleware' => $middleware,
+        'namespace' => $namespace,
+    ],
+    function () use ($areas_prgs,$namespace) {
+        RouteService::dynamic_route($areas_prgs, null, $namespace);
+    }
+);
+
+
 $this->routes();
