@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\View;
 use Route;
 use XRA\Extend\Library\XmlMenu_op;
 use XRA\Extend\Traits\Getter;
+//----- services --
+use XRA\Extend\Services\ArtisanService;
+
 //---------CSS----------
 
 class ThemeService
@@ -1321,10 +1324,16 @@ class ThemeService
         $cache_key=str_slug($view).'-'.md5(json_encode($data));
         $data['lang']=\App::getLocale();
         $seconds=60*60*24;
-        return Cache::store('file')->remember($cache_key, $seconds, function () use($view, $data, $mergeData){
-            return (string)\View::make($view, $data, $mergeData)->render();
-            //return (string)self::view($view);
-        });
+        try{
+            $html= Cache::store('file')->remember($cache_key, $seconds, function () use($view, $data, $mergeData){
+                return (string)\View::make($view, $data, $mergeData)->render();
+                //return (string)self::view($view);
+            });
+        }catch(\Exception $e){
+            ArtisanService::exe('cache:clear');
+            $html=(string)\View::make($view, $data, $mergeData)->render();
+        }
+        return $html;
     } 
 
 
