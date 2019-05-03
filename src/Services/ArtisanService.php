@@ -1,4 +1,5 @@
 <?php
+
 namespace XRA\Extend\Services;
 
 use Artisan;
