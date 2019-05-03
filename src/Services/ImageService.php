@@ -155,7 +155,7 @@ class ImageService
                 */
                 $x0 = 0;
                 //$y0 = \rand(0, $img->height() - $height);
-                $y0 = ($img->height() + $height)/2;
+                $y0 = round(($img->height() + $height)/2,0);
                 $img->crop($width, $height, $x0, $y0);
             }
         }else{
@@ -170,7 +170,7 @@ class ImageService
                 });
                 */
                 //$x0 = \rand(0, $img->width() - $width);
-                $x0 = ($img->width() + $width)/2;
+                $x0 = round(($img->width() + $width)/2,0);
                 $y0 = 0;
                 $img->crop($width, $height, $x0, $y0);
             }
