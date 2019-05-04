@@ -298,11 +298,17 @@ Form::macro('bsBtnCreate', function ($extra=[]) {
      //$txt='Nuova ';
      $params=[];
      extract($extra);
-     $routename=str_replace('.index', '.create', Request::route()->getName());
-     $routename=str_replace('.index_edit', '.create', Request::route()->getName());
+     //ddd($row->create_url);
+     if($row->create_url!=''){
+        $route=$row->create_url;
+    }else{
+        $routename=Request::route()->getName();
+        $routename=str_replace('.index', '.create', $routename);
+        $routename=str_replace('.index_edit', '.create', $routename);
+        $params=array_merge(\Route::current()->parameters(), $params);
+        $route=route($routename, $params);
+    }
 
-     $params=array_merge(\Route::current()->parameters(), $params);
-     $route=route($routename, $params);
      $class='btn btn-small btn-info btn-xs';
      if (isset($extra['class'])) {
          $class.=' '.$extra['class'];
