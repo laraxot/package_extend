@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
 <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
 <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="{{ asset('/manifest.json') }}">
 <meta name="application-name" content="{{ Theme::metatag('sitename') }}">
 <meta name="msapplication-TileColor" content="#2d89ef">
 <meta name="msapplication-TileImage" content="/mstile-144x144.png">
