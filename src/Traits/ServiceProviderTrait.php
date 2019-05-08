@@ -39,7 +39,6 @@ trait ServiceProviderTrait
         $class = class_basename($this);
         $class = \str_replace('ServiceProvider', '', $class);
         $class = \mb_strtolower($class);
-
         $enable_packs = config('xra.enable_packs');
         if (\is_array($enable_packs)) {
             if (!\in_array($class, $enable_packs, true)) {
@@ -51,10 +50,10 @@ trait ServiceProviderTrait
         $this->loadRoutesFrom($dir.'/routes/web.php');
         $this->loadEventsFrom($dir.'/Events');
         $migrate_packs = config('xra.migrate_packs');
-
         //echo '<br/>'.$class.'';
         if (\is_array($migrate_packs)) {
             if (\in_array($class, $migrate_packs, true)) {
+                //echo '<br/>['.$class.'] : ['.$dir.'/Migrations]'; //4 debug
                 $this->loadMigrationsFrom($dir.'/Migrations');
             }
         }
