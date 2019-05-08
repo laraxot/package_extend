@@ -407,6 +407,161 @@ class ArrayService
         return false;
     }
 
+    public static function raggruppa($params)
+    {
+        if (!isset($params['key_array']) && isset($params['key'])) {
+            $params['key_array'] = $params['key'];
+        }
+        \extract($params);
+        if (!\is_array($data)) {
+            return [];
+        }
+        //*-- made with collection
+        $collection = collect($data);
+        $grouped = $collection->groupBy(function ($item) use ($key_array) {
+            $key_tmp = [];
+            foreach ($key_array as $k) {
+                $key_tmp[] = $item[$k];
+            }
+
+            return \implode('-', $key_tmp);
+        });
+
+        return $grouped->all();
+        //*/
+
+        \reset($data);
+        $ris = [];
+        //foreach($data as $k => $v) {
+        foreach ($data as $k => $v) {
+            if (!\is_array($key_array)) {
+                ddd($key_array);
+            }
+            \reset($key_array);
+            $skey = [];
+            //while (list($k1, $v1) = each($key_array)) {
+            foreach ($key_array as $k1 => $v1) {
+                if (\is_object($v)) {
+                    if (!isset($v->$v1)) {
+                        //self::print_x($v1);
+                        //self::print_x($v);
+                        //ddd('qui');
+                        $v->$v1 = '';
+                    }
+                    $v2 = $v->$v1;
+                } else {
+                    if (isset($v[$v1])) {
+                        $v2 = $v[$v1];
+                    } else {
+                        $v2 = '';
+                    }
+                }
+                $skey[] = $v2;
+            }
+            $skey = \implode('-', $skey);
+            if (!isset($ris[$skey])) {
+                $ris[$skey] = [];
+            }
+            $ris[$skey][] = $v;
+        }
+
+        return $ris;
+    }
+
+    public static function subtotale($params)
+    {
+        $fields = [];
+        \extract($params);
+        $ris = [];
+        $fields = \array_merge($fields, $key);
+        $fields = \array_merge($fields, $add); //in piu forse
+        $fields = \array_unique($fields);
+        if (!\is_array($data)) {
+            return $ris;
+        }
+
+        //--------------
+        //*
+        $collection = collect($data);
+        $grouped = $collection->groupBy(function ($item) use ($key,$add,$fields) {
+            $key_tmp = [];
+            foreach ($key as $k) {
+                $key_tmp[] = $item[$k];
+            }
+
+            return \implode('-', $key_tmp);
+        })->map(function ($item) use ($add,$fields) {
+            foreach ($fields as $i) {
+                /*
+                if(!isset($item->first()[$i])){
+                    echo '<h3>Not set ['.$i.']</h3>';
+                    ddd($item->first());
+                }
+                */
+                $item->$i = $item->first()[$i];
+            }
+            foreach ($add as $i) {
+                $item->$i = $item->sum($i);
+            }
+
+            return $item;
+        });
+
+        return $grouped->all();
+        //*/
+        //--------------
+        \reset($data);
+
+        foreach ($data as $k => $v) {
+            if (\is_array($v)) {
+                $v = self::toObject($v);
+            }
+            $skey = [];
+            \reset($key);
+            foreach ($key as $kk => $vk) {
+                if (!isset($v->$vk)) {
+                    echo '<pre>[v]';
+                    \print_r($v);
+                    echo '[/v]</pre>';
+                    echo '<pre>[vk]';
+                    \print_r($vk);
+                    echo '[/vk]</pre>';
+                    ddd('qui');
+                }
+                $skey[] = $v->$vk;
+            }
+            $skey = \implode('-', $skey);
+            if (!isset($ris[$skey])) {
+                $obj = new \stdclass();
+                \reset($fields);
+                foreach ($fields as $kf => $vf) {
+                    if (!isset($v->$vf)) {
+                        $v->$vf = 0;
+                    }
+                    $obj->$vf = $v->$vf;
+                }
+                $ris[$skey] = $obj;
+            } else {
+                \reset($add);
+                foreach ($add as $ka => $va) {
+                    if (!isset($v->$va)) {
+                        $v->$va = 0;
+                    }
+                    if (!isset($ris[$skey]->$va)) {
+                        $ris[$skey]->$va = 0;
+                    }
+                    $ris[$skey]->$va += $v->$va;
+                    //echo '<pre>';print_r($ris[$skey]);echo '</pre>';
+                    //echo '<pre>';print_r($v);echo '</pre>';
+                    //echo '<pre>';print_r($va);echo '</pre>';
+                    //ddd('qui');
+                }
+            }
+        }
+
+        return $ris;
+    }
+
     public static function save($params){
         require_once(__DIR__.'/vendor/autoload.php');
         \extract($params);
