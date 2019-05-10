@@ -1325,7 +1325,7 @@ class ThemeService
         $data['lang']=\App::getLocale();
         $seconds=60*60*24;
         try{
-            $html= Cache::store('apc')->remember($cache_key, $seconds, function () use($view, $data, $mergeData){
+            $html= Cache::/*store('apc')->*/remember($cache_key, $seconds, function () use($view, $data, $mergeData){
                 return (string)\View::make($view, $data, $mergeData)->render();
                 //return (string)self::view($view);
             });
