@@ -88,8 +88,8 @@ Route::group(
     }
 );
 
+/*
 Route::get('/test', function () {
-    
     try{
         Cache::store('apc')->put('avenger_1', 'hulk', 10);//Call to undefined function Illuminate\Cache\apc_store()
     }catch(\Exception $e){
@@ -100,14 +100,12 @@ Route::get('/test', function () {
     }catch(\Exception $e){
         echo '<br/>NO memcached';
     }
-    /*
     try{
         Cache::store('redis')->put('avenger_1', 'hulk', 10); //Class 'Predis\Client' not found
     }catch(\Exception $e){
         echo '<br/>NO REDIS';
     }
-    */
 });
-
+*/
 
 $this->routes();
