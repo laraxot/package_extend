@@ -1,5 +1,13 @@
 $(function() {	
 	var modal_callback='';
+	$('.modal').on('show.bs.modal', function (event)  {
+		var button = $(event.relatedTarget); // Button that triggered the modal
+		var title = button.data('title'); // Extract info from data-* attributes
+		var modal = $(this);
+		modal.find('.modal-title').text(title);
+	});
+
+
 	$('#myModalAjax').on('show.bs.modal', function (event)  {
 		 /*$(this).find('.modal-dialog').css({width:'auto',
 								   height:'auto', 
