@@ -141,7 +141,7 @@ class ImgzController extends Controller
         $params = \Route::current()->parameters();
         $cache_key=md5($_SERVER['SERVER_NAME'].'_'.json_encode($params));
         $seconds=60*60*24*7;
-        $out = Cache::store('file')->remember($cache_key, $seconds,function () use($params){
+        $out = Cache::remember($cache_key, $seconds,function () use($params){
             $params['src']=str_replace('|','/',$params['src']);
             \extract($params);
             list($w, $h) = \explode('x', $wxh);
