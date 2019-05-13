@@ -100,12 +100,15 @@ Form::macro('bsOpen', function ($model, $from, $to='', $params = null, $formName
         }
     }
 
-    $routename=Request::route()->getName();
-    $routename=str_replace('.'.$from, '.'.$to, $routename);
+    $act=$to.'_url';
+    $route=$model->$act;
 
-    $route=route($routename, $params);
+    if($route==''){
+        $routename=Request::route()->getName();
+        $routename=str_replace('.'.$from, '.'.$to, $routename);
+        $route=route($routename, $params);
+    }
 
-    $parz=array_merge([$routename], array_values($params));
     switch ($to) {
         case 'store':
             $method='POST';
@@ -126,8 +129,10 @@ Form::macro('bsOpen', function ($model, $from, $to='', $params = null, $formName
 
 
 
+    //$parz=array_merge([$routename], array_values($params));
     return Form::model($model, [
-    'route' => $parz,
+    //'route' => $parz,
+    'url' => $route,
     'name' => $formName,
     'id' => $formName
     //'action' => $route
