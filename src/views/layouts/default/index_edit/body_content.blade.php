@@ -2,8 +2,8 @@
 	$item_view=$view.'.item.'.snake_case($row->post_type);
 	$item_view_default=$view_default.'.item.'.snake_case($row->post_type);
 	$item_view_extend=$view_extend.'.item.'.snake_case($row->post_type);
-	if(!\View::exists($item_view) && !\View::exists($item_view_default) && !\View::exists($item_view_extend)){
-		ddd('not exist ['.$item_view.'] ['.$item_view_default.'] ['.$item_view_extend.']');
+	if(!\View::exists($item_view) && !\View::exists($item_view_default) /*&& !\View::exists($item_view_extend)*/){
+		ddd('not exist ['.$item_view.'] ['.$item_view_default.'] ');
 	}
 	/*
 	$add_item_view=$view.'.item.add.'.snake_case($row->post_type);
