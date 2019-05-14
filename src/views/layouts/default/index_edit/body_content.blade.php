@@ -1,8 +1,9 @@
 @php
 	$item_view=$view.'.item.'.snake_case($row->post_type);
 	$item_view_default=$view_default.'.item.'.snake_case($row->post_type);
-	if(!\View::exists($item_view) && !\View::exists($item_view_default)){
-		ddd('not exist ['.$item_view.'] ['.$item_view_default.']');
+	$item_view_extend=$view_extend.'.item.'.snake_case($row->post_type);
+	if(!\View::exists($item_view) && !\View::exists($item_view_default) && !\View::exists($item_view_extend)){
+		ddd('not exist ['.$item_view.'] ['.$item_view_default.'] ['.$item_view_extend.']');
 	}
 	/*
 	$add_item_view=$view.'.item.add.'.snake_case($row->post_type);
@@ -14,7 +15,14 @@
 @endphp
 {!! Form::bsBtnCreate(['txt'=>__($item_view.'.btn.new')]) !!}
 @foreach($rows as $key=>$row)
-	@includeFirst([$item_view,$item_view_default],['key'=>$key,'row'=>$row])
+	@includeFirst(
+		[
+			$item_view,
+			$item_view_default,
+			$item_view_extend,
+		],
+		['key'=>$key,'row'=>$row]
+	)
 @endforeach
 {{ $rows->links('pub_theme::layouts.partials.pagination') }}
 
