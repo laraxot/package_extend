@@ -1204,8 +1204,7 @@ class ThemeService
 
     //end getView
 
-    public static function view($view=null)
-    {
+    public static function view($view=null){
         \Debugbar::startMeasure('render','Time for rendering');
         $params = \Route::current()->parameters();
         $routename = \Route::current()->getName();
@@ -1216,14 +1215,18 @@ class ThemeService
         }else{
             $view_default='pub_theme::layouts.default.'.$act; //pub_theme o extend ?
         }
+        $view_extend='extend::layouts.default.'.$act;
+        //---------------------------------------------------------------------------
         if (\Request::ajax()) {
             $view_default .= '_ajax';
+            $view_extend  .='_ajax';
         }
         $use_default=false;
         if($view==null){
             $view = self::getView($params);
         }
         //ddd($view);
+        /*
         if (!\View::exists($view)) {
             if(!\View::exists($view_default)){
                 echo('<h3>view ['.$view.'] and ['.$view_default.'] not esists</h3>['.__LINE__.']['.__FILE__.']');
@@ -1232,6 +1235,19 @@ class ThemeService
             }
             $use_default=true;
         }
+        */
+        if (\View::exists($view)) {
+            $view_work=$view;
+        }elseif(\View::exists($view_default)){
+            $view_work=$view_default; 
+        }elseif(\View::exists($view_extend)){
+            $view_work=$view_extend;
+        }else{
+            echo('<h3>view ['.$view.'] and ['.$view_default.'] and ['.$view_extend.'] not esists</h3>['.__LINE__.']['.__FILE__.']');
+            echo '<h3> pub_theme ['.config('xra.pub_theme').']</h3>';
+            ddd('add missing template');  
+        }
+
         $row = last($params);
         $n_params=count($params);
         if($n_params>1){
@@ -1242,11 +1258,13 @@ class ThemeService
         self::setMetatags($row);
         $routename = \Route::current()->getName();
         $lang = \App::getLocale();
+        /*
         if($use_default){
             $view_work=$view_default;
         }else{
             $view_work=$view;
         }
+        */
 
 
         $theView = view($view_work)
@@ -1258,6 +1276,7 @@ class ThemeService
             //->with($roots)  // dipende dal tipo di crud
             ->with('view', $view)
             ->with('view_default',$view_default)
+            ->with('view_extend',$view_extend)
             ->with('routename', $routename);
         $view_params = self::__getStatic('view_params');
         foreach ($view_params as $key => $value) {

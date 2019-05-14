@@ -300,7 +300,7 @@ Form::macro('bsBtnCreate', function ($extra=[]) {
     }
     //*/
      //---default var ---
-     //$txt='Nuova ';
+     $txt='Nuova ';
      $params=[];
      extract($extra);
      //ddd($row->create_url);
