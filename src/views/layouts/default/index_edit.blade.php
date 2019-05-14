@@ -26,18 +26,25 @@
 	@include('extend::includes.components')
 	@include('extend::includes.flash')
 	@include('extend::modal_ajax')
-	@include($view_default.'.btns.gear')
+	@includeFirst([$view_default.'.btns.gear',$view_extend.'.btns.gear'])
 		<div class="page-wrapper">
 			@if(isset($step))
 			@include('pub_theme::layouts.partials.top_links',['step'=>$step])
 			@endif
 			@if(is_array($parent_tabs) && is_object($second_last))
-				{{-- ddd($view_default) pub_theme::layouts.default.index --}}
+				  
 				@includeFirst(['pub_theme::layouts.default.show.inner_page.'.snake_case($second_last->post_type),'pub_theme::layouts.default.show.inner_page'])
+				
 			@else
-				@includeFirst([$view.'.inner_page',$view_default.'.inner_page'])
+				@includeFirst(
+					[
+						$view.'.inner_page',
+						$view_default.'.inner_page',
+						$view_extend.'.inner_page'
+					]
+				)
 			@endif
-			@include('pub_theme::layouts.partials.breadcrumb_params')
+			@include('extend::layouts.partials.breadcrumb')
 			@if(is_array($parent_tabs))
 				@if(!\View::exists($view.'.parent_tabs') && !\View::exists($view_default.'.parent_tabs') )
 					{{ ddd('not exists ['.$view.'.parent_tabs]['.$view_default.'.parent_tabs] ') }}
@@ -55,7 +62,7 @@
 			<section class="restaurants-page">
 				<div class="container">
 					<div class="row">
-						@include($view_default.'.'.$view_body)
+						@includeFirst([$view_default.'.'.$view_body,$view_extend.'.'.$view_body])
 					</div>
 				</div>
 			</section>

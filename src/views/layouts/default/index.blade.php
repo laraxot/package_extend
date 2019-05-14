@@ -41,7 +41,13 @@
 				
 				@includeFirst(['pub_theme::layouts.default.show.inner_page.'.snake_case($second_last->post_type),'pub_theme::layouts.default.show.inner_page'])
 			@else
-				@includeFirst([$view.'.inner_page',$view_default.'.inner_page',$view_extend.'.inner_page'])
+				@includeFirst(
+					[
+						$view.'.inner_page',
+						$view_default.'.inner_page',
+						$view_extend.'.inner_page'
+					]
+				)
 			@endif
 			@include('pub_theme::layouts.partials.breadcrumb')
 			@if(is_array($parent_tabs))
