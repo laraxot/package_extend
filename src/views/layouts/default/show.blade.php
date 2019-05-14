@@ -45,7 +45,14 @@
 )
 @includeFirst(['pub_theme::layouts.partials.breadcrumb','extend::layouts.partials.breadcrumb'])
 @if(is_array($tabs))
-	@includeFirst([$view.'.tabs',$view_default.'.tabs'],['tabs'=>$tabs] )
+	@includeFirst(
+		[
+			$view.'.tabs',
+			$view_default.'.tabs',
+			$view_extend.'.tabs'
+		],
+		['tabs'=>$tabs] 
+	)
 @endif
 <section class="create-page inner-page">
     <div class="container">

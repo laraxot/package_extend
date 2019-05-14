@@ -10,7 +10,8 @@ $recipe_curr=collect($params)->where('type','recipe')->last();
 		<span class="price pull-left">€ {{ number_format($recipe_curr->pivot->price,2) }}</span>
 	</div>
 	<div class="col-xs-6 col-sm-4 col-lg-4">
-		<input class="form-control" type="number" value="0" id="qty">
+		<input type="hidden" name="pivot_id" value="{{ $recipe_curr->pivot->id }}">
+		<input class="form-control" type="number" value="1" id="qty">
 	</div>
 	<div style="display:none">
 		<span id="price">{{ $recipe_curr->pivot->price }}</span>

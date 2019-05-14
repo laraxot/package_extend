@@ -38,8 +38,12 @@
 			@include('pub_theme::layouts.partials.top_links',['step'=>$step])
 			@endif
 			@if(is_array($parent_tabs) && is_object($second_last))
-				
-				@includeFirst(['pub_theme::layouts.default.show.inner_page.'.snake_case($second_last->post_type),'pub_theme::layouts.default.show.inner_page'])
+				@includeFirst(
+					[
+						'pub_theme::layouts.default.show.inner_page.'.snake_case($second_last->post_type),
+						'pub_theme::layouts.default.show.inner_page'
+					]
+				)
 			@else
 				@includeFirst(
 					[
@@ -51,7 +55,14 @@
 			@endif
 			@include('pub_theme::layouts.partials.breadcrumb')
 			@if(is_array($parent_tabs))
-				@includeFirst([$view.'.parent_tabs',$view_default.'.parent_tabs',$view_extend.'.inner_page'],['tabs'=>$parent_tabs] )
+				@includeFirst(
+					[
+						$view.'.parent_tabs',
+						$view_default.'.parent_tabs',
+						$view_extend.'.parent_tabs'
+					],
+					['tabs'=>$parent_tabs] 
+				)
 			@endif
 			@if(is_array($tabs))
 				{{-- tabs1 solo per non leggere file vecchi --}}
