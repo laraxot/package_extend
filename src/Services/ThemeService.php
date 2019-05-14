@@ -1210,6 +1210,7 @@ class ThemeService
         $routename = \Route::current()->getName();
         $routename_arr=explode('.',$routename);
         $act=last($routename_arr);
+        ddd($act);
         if(\in_admin()){
             $view_default='adm_theme::layouts.default.'.$act;
         }else{
