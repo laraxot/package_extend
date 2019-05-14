@@ -294,20 +294,26 @@ Form::macro('bsBtnCreate', function ($extra=[]) {
     if($user==null) return '';
     //*
     $params=\Route::current()->parameters();
+    
+    //*/
+     //---default var ---
     $row=last($params);
+    $txt='Nuova ';
+    $params=[];
+    extract($extra);
+
     if (!$user->can('create', $row)){
         return '[not can create]';
     }
-    //*/
-     //---default var ---
-     $txt='Nuova ';
-     $params=[];
-     extract($extra);
      //ddd($row->create_url);
-     if($row->create_url!=''){
+    if($row->create_url!=''){
         $route=$row->create_url;
     }else{
         $routename=Request::route()->getName();
+        if($routename==null){
+            $params['container0']=$row->post_type;
+            $routename='container0.index';
+        }
         $routename=str_replace('.index', '.create', $routename);
         $routename=str_replace('.index_edit', '.create', $routename);
         $params=array_merge(\Route::current()->parameters(), $params);

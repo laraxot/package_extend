@@ -299,6 +299,11 @@ trait CrudContainerItemTrait
         \extract($params);
         $routename = \Route::current()->getName();
         $row = last($params);
+        //ddd(config('xra.model'));
+        if(get_class($row) == Post::class){ //se e' post devo prendere l'elemento collegato
+            $row=$row->getLinkedModel();
+            //$row=$row->linkable; //Class 'forum_cat' not found
+        }
         if (isset($this->notAuthorize) && true == $this->notAuthorize) {
         } else {
             $this->authorize('create', $row);
