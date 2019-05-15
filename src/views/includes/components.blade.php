@@ -328,9 +328,36 @@ Form::macro('bsBtnCreate', function ($extra=[]) {
      <i class="fa fa-plus-square fa-fw" aria-hidden="true"></i>&nbsp;'.$txt.'</a>';
  });
 
-Form::macro('bsBtnCreateRelated', function ($params) {
-    extract($params);
-    return $row->url;
+Form::macro('bsBtnCreateRelated', function ($parz) {
+    $user=\Auth::user();
+    if($user==null) return ''; // se non loggato manco il tasto
+    //--- default vars
+    $txt = 'Add';
+    extract($parz);
+    if (!$user->can('create', $related)){
+        return '[not can create]';
+    }
+    $params=\Route::current()->parameters();
+    $routename=$row->routename;
+    if($routename==''){
+        $routename=Request::route()->getName();
+    }
+    $routename_arr=explode('.',$routename);
+    $act=collect($routename_arr)->last();
+    $route_no_act=array_slice($routename_arr,0,-1);
+    $piece=count($route_no_act);
+    $container_curr='container'.($piece-1);
+    $item_curr='item'.($piece-1);
+    $container_next='container'.($piece);
+    $route_create=implode('.',$route_no_act).'.'.$container_next.'.create';
+    $params[$container_curr]=$row->post_type;
+    $params[$item_curr]=$row;
+    $params[$container_next]=$related->post_type;
+    $url=route($route_create,$params);
+    $class='btn btn-secondary';
+    return '<a class="'.$class.'" href="'.$url.'" data-toggle="tooltip" title="Create">
+     <i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;'.$txt.'</a>';
+    
 });
 
 
