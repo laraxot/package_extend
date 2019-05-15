@@ -328,4 +328,10 @@ Form::macro('bsBtnCreate', function ($extra=[]) {
      <i class="fa fa-plus-square fa-fw" aria-hidden="true"></i>&nbsp;'.$txt.'</a>';
  });
 
+Form::macro('bsBtnCreateRelated', function ($params) {
+    extract($params);
+    return $row->url;
+});
+
+
 @endphp
