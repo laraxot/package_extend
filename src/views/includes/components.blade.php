@@ -339,8 +339,12 @@ Form::macro('bsBtnCreateRelated', function ($parz) {
     }
     $params=\Route::current()->parameters();
     $routename=$row->routename;
+    
     if($routename==''){
         $routename=Request::route()->getName();
+        if($routename==''){
+            $routename='container0.index';
+        }
     }
     $routename_arr=explode('.',$routename);
     $act=collect($routename_arr)->last();
