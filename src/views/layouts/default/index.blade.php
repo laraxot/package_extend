@@ -38,12 +38,15 @@
 			@include('pub_theme::layouts.partials.top_links',['step'=>$step])
 			@endif
 			@if(is_array($parent_tabs) && is_object($second_last))
+				
 				@includeFirst(
 					[
 						'pub_theme::layouts.default.show.inner_page.'.snake_case($second_last->post_type),
-						'pub_theme::layouts.default.show.inner_page'
+						'pub_theme::layouts.default.show.inner_page',
+						'extend::layouts.default.show.inner_page',
 					]
 				)
+				
 			@else
 				@includeFirst(
 					[
