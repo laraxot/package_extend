@@ -30,9 +30,7 @@
 	@include('extend::includes.components')
 	@include('extend::includes.flash')
 	@include('extend::modal_ajax')
-	{{--  
 	@includeFirst([$view_default.'.btns.gear',$view_extend.'.btns.gear'])
-	--}}
 		<div class="page-wrapper">
 			@if(isset($step))
 			@include('pub_theme::layouts.partials.top_links',['step'=>$step])

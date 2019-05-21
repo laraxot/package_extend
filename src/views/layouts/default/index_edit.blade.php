@@ -10,12 +10,14 @@
 	
 	$tabs=$row->tabs;
 	$parent_tabs=$row->parent_tabs;
+	$edit_type=snake_case($row->post_type);
+	$parent_type=snake_case($second_last->post_type);
 	$view_body='';
-	if(\View::exists($view.'.left') || \View::exists($view_default.'.left.'.snake_case($row->post_type)) ) {
+	if(\View::exists($view.'.left') || \View::exists($view_default.'.left.'.$edit_type) ) {
 		$view_body.='left_';
 	}
 	$view_body.='body';
-	if(\View::exists($view.'.right') || \View::exists($view_default.'.right.'.snake_case($row->post_type)) ) {
+	if(\View::exists($view.'.right') || \View::exists($view_default.'.right.'.$edit_type) ) {
 		$view_body.='_right';
 	}
 
@@ -32,8 +34,14 @@
 			@include('pub_theme::layouts.partials.top_links',['step'=>$step])
 			@endif
 			@if(is_array($parent_tabs) && is_object($second_last))
-				  
-				@includeFirst(['pub_theme::layouts.default.show.inner_page.'.snake_case($second_last->post_type),'pub_theme::layouts.default.show.inner_page'])
+				
+				@includeFirst(
+					[
+						'pub_theme::layouts.default.show.inner_page.'.snake_case($second_last->post_type),
+						'pub_theme::layouts.default.show.inner_page',
+						'extend::layouts.default.show.inner_page',
+					]
+				)
 				
 			@else
 				@includeFirst(
@@ -46,10 +54,17 @@
 			@endif
 			@include('extend::layouts.partials.breadcrumb')
 			@if(is_array($parent_tabs))
-				@if(!\View::exists($view.'.parent_tabs') && !\View::exists($view_default.'.parent_tabs') )
-					{{ ddd('not exists ['.$view.'.parent_tabs]['.$view_default.'.parent_tabs] ') }}
+				@if(!\View::exists($view.'.parent_tabs') && !\View::exists($view_default.'.parent_tabs') && !\View::exists($view_extend.'.parent_tabs') )
+					{{ ddd('not exists ['.$view.'.parent_tabs]['.$view_default.'.parent_tabs]['.$view_extend.'.parent_tabs] ') }}
 				@else 
-				@includeFirst([$view.'.parent_tabs',$view_default.'.parent_tabs'],['tabs'=>$parent_tabs] )
+				@includeFirst(
+					[
+						$view.'.parent_tabs',
+						$view_default.'.parent_tabs',
+						$view_extend.'.parent_tabs',
+					],
+					['tabs'=>$parent_tabs] 
+				)
 				@endif
 			@endif
 			@if(is_array($tabs))
