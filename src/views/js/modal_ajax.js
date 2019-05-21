@@ -1,4 +1,6 @@
-$(function() {	
+//$(function() {	
+jQuery(document).ready(function($){
+//$(document).ready(function(){
 	var modal_callback='';
 	$('.modal').on('show.bs.modal', function (event)  {
 		var button = $(event.relatedTarget); // Button that triggered the modal

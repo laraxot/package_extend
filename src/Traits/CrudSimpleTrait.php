@@ -128,6 +128,11 @@ trait CrudSimpleTrait
             //$this->scoutImport(['model'=>$row]);
         }
 
+        if (\method_exists($model, 'getWith')) {
+            $with=$model->getWith();
+            $rows=$rows->with($with);
+        }
+
         $allrows = $rows;
         $rows = $rows->paginate(20);
         // $href_create=route('classificator.cat.create');
