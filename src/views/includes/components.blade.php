@@ -169,7 +169,8 @@ Form::macro('bsBtnEdit', function ($extra, $from='index', $to='edit') {
     if (isset($extra['class'])) {
         $class.=' '.$extra['class'];
     }
-    return '<a class="'.$class.'" href="'.$route.'" data-toggle="tooltip" title="Modifica"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i></a>';
+    return '<a class="'.$class.'" href="'.$route.'" data-toggle="tooltip" title="Modifica">
+    <i class="fa fa-pencil fa-fw far fa-edit" aria-hidden="true"></i></a>';
 });
 
 
@@ -178,7 +179,8 @@ Form::macro('bsBtnClone', function ($extra, $from='index', $to='edit' /*$to='rep
     $params=array_merge($params, $extra);
     $params['replicate']=1;
     $route=route(str_replace('.'.$from, '.'.$to, Request::route()->getName()), $params);
-    return '<a class="btn btn-small btn-warning" href="'.$route.'"  data-toggle="tooltip" title="Duplica"><i class="fa fa-clipboard fa-fw" aria-hidden="true"></i></a>';
+    return '<a class="btn btn-small btn-warning" href="'.$route.'"  data-toggle="tooltip" title="Duplica">
+    <i class="fa fa-clipboard fa-fw far fa-clone" aria-hidden="true"></i></a>';
 });
 
 Form::macro('bsBtnDelete', function ($extra) {
@@ -218,7 +220,7 @@ Form::macro('bsBtnDelete', function ($extra) {
         $class.=' '.$extra['class'];
     }
     return '<a class="'.$class.'" href="#" data-token="'. csrf_token() .'" data-id="'.$id.'" data-href="'.$row->destroy_url.'?id='.$id.'" data-toggle="tooltip" title="Cancella">
-        <i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>
+        <i class="fa fas fa-trash-alt fa-trash-o fa-fw" aria-hidden="true"></i>
     </a>';
 });
 
@@ -302,11 +304,11 @@ Form::macro('bsBtnCreate', function ($extra=[]) {
     $params=[];
     extract($extra);
 
-    if (!$user->can('create', $row)){
-        return '[not can create]';
+    if (is_object($row) && !$user->can('create', $row)){
+        return '[not can create]['.get_class($row).']';
     }
      //ddd($row->create_url);
-    if($row->create_url!=''){
+    if(is_object($row) && $row->create_url!=''){
         $route=$row->create_url;
     }else{
         $routename=Request::route()->getName();
