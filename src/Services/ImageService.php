@@ -130,7 +130,16 @@ class ImageService
         return $image_resized;
     }
 
-    
+     public static function fit($params=[]){
+        $me=self::getInstance($params);
+        
+        $img    =self::$img;
+        $width  =self::$width;
+        $height =self::$height;
+
+        self::$img->fit($width,$height);
+        return self::getInstance(); 
+    }
 
 
     public static function crop($params=[]){
@@ -195,6 +204,10 @@ class ImageService
 
     public static function out($params=[]){
         return self::$img->encode('jpg', 60);
+    }
+
+    public static function src($params=[]){
+        return str_replace(public_path(),'',self::$filename);
     }
 
 

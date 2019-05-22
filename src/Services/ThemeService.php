@@ -1356,4 +1356,16 @@ class ThemeService
     } 
 
 
+    public static function imageSrc($params){
+        extract($params);
+        $path=self::asset($path);
+        //ddd($path);
+        $parz=['src'=>$path,'height'=>$height,'width'=>$width];
+        $img=new ImageService($parz);
+        $ris= $img->fit()->save()->src();
+        $ris=str_replace('\\','/',$ris);
+        $ris=str_replace('//','/',$ris);
+        return asset($ris);
+    }
+
 }//end class
