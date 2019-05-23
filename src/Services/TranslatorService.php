@@ -60,8 +60,11 @@ class TranslatorService extends BaseTranslator{
         $item_keys=implode('"]["',$item_keys);
         $item_keys='["'.$item_keys.'"]';
         $str='$rows'.$item_keys.'="'.$value.'";';
-        eval($str); //fa schifo ma funziona
+        try{
+            eval($str); //fa schifo ma funziona
+        }catch(\Exception $e){
 
+        }
         ArrayService::save(['data' => $rows, 'filename' => $filename]);
 
         \Session::flash('status', 'Modifica Eseguita! ['.$filename.']');

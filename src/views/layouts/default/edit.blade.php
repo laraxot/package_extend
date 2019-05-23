@@ -32,6 +32,7 @@
 @include('extend::modal_ajax')
 @include($view_default.'.btns.gear')
 <div class="page-wrapper">
+	
 	@includeFirst(
 		[
 			$view.'.inner_page',
@@ -41,6 +42,7 @@
 		['edit_type'=>$edit_type]
 	)
 	@include('pub_theme::layouts.partials.breadcrumb_params')
+
 	@if(is_array($parent_tabs))
 		@includeFirst(
 			[
@@ -51,6 +53,7 @@
 			['tabs'=>$parent_tabs] 
 		)
 	@endif
+	
 	@if(is_array($tabs))
 		{{-- tabs1 solo per non leggere file vecchi --}}
 		@includeFirst(
