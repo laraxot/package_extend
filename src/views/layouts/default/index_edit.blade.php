@@ -25,7 +25,9 @@
 	//$items=$rows
 
 @endphp
+	{{--
 	@include('extend::includes.components')
+	--}}
 	@include('extend::includes.flash')
 	@include('extend::modal_ajax')
 	@includeFirst([$view_default.'.btns.gear',$view_extend.'.btns.gear'])
