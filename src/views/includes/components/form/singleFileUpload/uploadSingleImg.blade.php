@@ -2,7 +2,7 @@
 	if(isset($attributes['label']))
 		$label=$attributes['label'];
 	else
-		$label=trans($lang.'.'.$name);
+		$label=trans($view.'.field.'.$name);
     Theme::add('theme/bc/dropzone/dist/min/dropzone.min.css');
 	Theme::add('theme/bc/dropzone/dist/min/dropzone.min.js');
     Theme::add('pub_theme::includes/components/form/singleFileUpload/css/dropzone.css');

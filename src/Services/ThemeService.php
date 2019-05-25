@@ -1265,7 +1265,10 @@ class ThemeService
             $view_work=$view;
         }
         */
-
+        //--- per passare la view all'interno dei componenti
+        \View::composer('*', function($view1) use($view){
+            \View::share('view', $view);
+        });
 
         $theView = view($view_work)
             ->with('row', $row)  //dipende dal tipo di crud

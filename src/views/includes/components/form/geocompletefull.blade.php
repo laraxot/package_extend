@@ -1,5 +1,5 @@
 <div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
-    {{ Form::label($name,   trans($lang.'.'.$name), ['class' => 'sr-only control-label']) }}
+    {{ Form::label($name,   trans($view.'.field.'.$name), ['class' => 'sr-only control-label']) }}
     <div class="form-group search_container">
         {{ Form::text($name, $value, array_merge([
                     'class' => 'form-control form-control-lg geocompletefull search-input'

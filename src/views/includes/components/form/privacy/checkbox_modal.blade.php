@@ -1,5 +1,5 @@
 @php
-    $lang='food::privacy'; //caso particolare
+    $view.'.field.'='food::privacy'; //caso particolare
     $name1=$name;
     $name1=str_replace('linked[','',$name1);
     $name1=str_replace(']','',$name1);
@@ -10,9 +10,9 @@
     if(isset($attributes['label']))
         $label=$attributes['label'];
     else
-        $label=trans($lang.'.'.$name1);
-    $txt=trans($lang.'.'.$name1.'_txt');
-    $title=trans($lang.'.'.$name1.'_title');
+        $label=trans($view.'.field.'.$name1);
+    $txt=trans($view.'.field.'.$name1.'_txt');
+    $title=trans($view.'.field.'.$name1.'_title');
     //checkbox($name, $value = 1, $checked = null, $options = [])
     //text($name, $value = null, $options = [])
     //radio($name, $value = null, $checked = null, $options = [])
@@ -33,5 +33,5 @@
 			<strong>{{ $errors->first($name) }}</strong>
 		</span>
     @endif
-    {{--<small class="form-text text-muted">{{ trans($lang.'.'.$name.'_help') }} </small> --}}
+    {{--<small class="form-text text-muted">{{ trans($view.'.field.'.$name.'_help') }} </small> --}}
 </div>

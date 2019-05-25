@@ -89,6 +89,7 @@
 					@includeFirst([$view.'.right',$view_default.'.right'])
 				</div>
 				--}}
+				{{-- Form::bsTest1() --}}
 				@includeFirst(
 					[
 						$view_default.'.'.$view_body,

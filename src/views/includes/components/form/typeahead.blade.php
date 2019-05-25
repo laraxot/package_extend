@@ -1,6 +1,6 @@
 @php
-	$label=isset($attributes['label'])?$attributes['label']:trans($lang.'.'.$name);
-	$placeholder=trans($lang.'.'.$name.'_placeholder');
+	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
+	$placeholder=trans($view.'.field.'.$name.'_placeholder');
 	Theme::add('theme/bc/typeahead.js/dist/typeahead.bundle.js');
 	//Theme::add('backend::js/bsTypeahead.js');
 	Theme::add(str_replace('.','/',$comp_view).'/js/bsTypeahead.js');
@@ -8,13 +8,13 @@
 
 @component($blade_component,compact('name','value','attributes','lang','comp_view'))
 	@slot('label')
-		{{ Form::label($name,   trans($lang.'.'.$name), ['class' => 'control-label']) }} {{-- sr-only  --}}
+		{{ Form::label($name,   trans($view.'.field.'.$name), ['class' => 'control-label']) }} {{-- sr-only  --}}
 	@endslot
 	@slot('input')
 		<div class="form-group search_container">
 			{{ Form::text($name, $value, array_merge([
 						'class' => 'form-control form-control-lg typeahead search-input'
-						,'placeholder'=> trans($lang.'.'.$name)
+						,'placeholder'=> trans($view.'.field.'.$name)
 						], $attributes)) }}
 		</div>
 		@if ( $errors->has($name) )

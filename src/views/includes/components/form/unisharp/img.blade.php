@@ -6,8 +6,8 @@
 	//ddd($comp_view);//extend::includes.components.form.unisharp.img
 	$src=Form::getValueAttribute($name);
 	if($src=='') $src='/images/nophoto.png';
-	$label=isset($attributes['label'])?$attributes['label']:trans($lang.'.'.$name);
-	$placeholder=trans($lang.'.'.$name.'_placeholder');
+	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
+	$placeholder=trans($view.'.field.'.$name.'_placeholder');
 @endphp
 
 @component($blade_component,compact('name','value','attributes','lang','comp_view'))

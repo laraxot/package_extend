@@ -1,5 +1,5 @@
 @php
-    $lang='food::privacy'; //caso particolare
+    $view.'.field.'='food::privacy'; //caso particolare
     $name1=$name;
     $name1=str_replace('linked[','',$name1);
     $name1=str_replace(']','',$name1);
@@ -10,9 +10,9 @@
     if(isset($attributes['label']))
         $label=$attributes['label'];
     else
-        $label=trans($lang.'.'.$name1);
-    $txt=trans($lang.'.'.$name1.'_txt');
-    $title=trans($lang.'.'.$name1.'_title');
+        $label=trans($view.'.field.'.$name1);
+    $txt=trans($view.'.field.'.$name1.'_txt');
+    $title=trans($view.'.field.'.$name1.'_title');
 @endphp
 <div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
     <h4>{{$title}}</h4>

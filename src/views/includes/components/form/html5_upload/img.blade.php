@@ -3,8 +3,8 @@
 	Theme::add($comp_view.'/css/html5imageupload.css');
 	Theme::add($comp_view.'/css/glyphicons.css');
 	Theme::add($comp_view.'/css/style.css'); 
-	$label=isset($attributes['label'])?$attributes['label']:trans($lang.'.'.$name);
-	$placeholder=isset($attributes['placeholder'])?$attributes['placeholder']:trans($lang.'.'.$name.'_placeholder');
+	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
+	$placeholder=isset($attributes['placeholder'])?$attributes['placeholder']:trans($view.'.field.'.$name.'_placeholder');
 @endphp
 
 <div class="form-group">

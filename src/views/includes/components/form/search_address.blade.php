@@ -4,8 +4,8 @@
 	if(isset($attributes['label']))
 		$label=$attributes['label'];
 	else
-		$label=trans($lang.'.'.$name);
-	$placeholder=trans($lang.'.'.$name.'_placeholder');
+		$label=trans($view.'.field.'.$name);
+	$placeholder=trans($view.'.field.'.$name.'_placeholder');
 @endphp
 
 <div class="input-group mb-2">

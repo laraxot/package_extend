@@ -1,79 +1,6 @@
 @php
-    $params=\Route::current()->parameters();
-    $routename=\Route::currentRouteName();
-    extract($params);
-    $route_arr=[];
-    if($routename!=null){
-        $route_arr=explode('.',$routename);
-        foreach($route_arr as $k=>$v){
-            if(in_array($v,array_keys($params))){
-                if(is_object($params[$v])){
-                    $route_arr[$k]=$params[$v]->post_type;
-                }else{
-                    $route_arr[$k]=$params[$v];
-                }
-            }
-        }
-    }
-    $routename=implode('.',$route_arr);
-    if($routename==''){
-        $routename='index';
-    }
-    $lang=$view.'.field';//'pub_theme::'.$routename;
-    $view_path=dirname(\View::getFinder()->find('extend::includes.components.form.text')); //devo dargli una view esistente di partenza
-    $blade_component='components.blade.input';
-    if(in_admin()){
-        $blade_component='backend::includes.'.$blade_component;
-    }else{
-        $blade_component='pub_theme::layouts.'.$blade_component;
-    }
-    if(!File::exists($view_path.'/_components.json')){
-        $files = File::allFiles($view_path);
-        $comps=[];
-        foreach($files as $file){
-            $filename=$file->getRelativePathname();
-            //ddd($file->getPath());///home/vagrant/code/food/laravel/packages/XRA/Extend/src/views/includes/components/form"
-            $ext='.blade.php';
-            if(ends_with($filename,$ext)){
-                $base=substr(($filename),0,-strlen($ext));
-                $name=str_replace(DIRECTORY_SEPARATOR,'_',$base);
-                $name='bs'.studly_case($name);
-
-                //$comp_view=str_replace('/','.',$base);
-                //echo '<br/>'.$base.'  --- '.$name.'  --  '.$comp_view;
-                $comp_view=str_replace(DIRECTORY_SEPARATOR,'.',$base);
-                //echo '<br/>'.$base.'  --- '.$name.'  --  '.$comp_view;
-                $comp_view='extend::includes.components.form.'.$comp_view;
-                //echo '<br/> Component ['.$name.']['.xdebug_time_index().']';
-                $comp=new \StdClass();
-                $comp->name=$name;
-                $comp->view=$comp_view;
-                $comp->base=$base;
-                $comp->dir=$file->getPath();
-                $comps[]=$comp;
-                /*
-                Form::component($name, $comp_view,
-                    ['name', 'value' => null,'attributes' => [],'lang'=>$lang,
-                    'comp_view'=>$comp_view,
-                    'comp_dir'=>$file->getPath(),
-                    'blade_component'=>$blade_component]);
-                */
-            }
-        }
-        //ddd($comps);
-        File::put($view_path.'/_components.json',json_encode($comps));
-    }else{
-        $comps=File::get($view_path.'/_components.json');
-        $comps=json_decode($comps);
-    }
-    foreach($comps as $comp){
-        Form::component($comp->name, $comp->view,
-                    ['name', 'value' => null,'attributes' => [],'lang'=>$lang,
-                    'comp_view'=>$comp->view,
-                    'comp_dir'=>$comp->dir,
-                    'blade_component'=>$blade_component]);
-    }
-
+   // use Illuminate\Support\Str;
+   // use Illuminate\Support\Collection;
 
 
 
@@ -82,6 +9,16 @@
     Form::component('bsHtml5UploadImg', 'extend::includes.components.form.html5upload.upload',
         ['name', 'value' => null, 'attributes' => [],'lang'=>$lang,'comp_view'=>$comp_view,'blade_component'=>$blade_component]);
     */
+
+//$tmp=\File::glob('extend::Form/Macros');
+
+    //$tmp=ThemeService::packNamespacePath('extend');
+//        $tmp=extend::getPath();
+
+
+
+
+/*
 Form::macro('bsOpen', function ($model, $from, $to='', $params = null, $formName="theForm") {
     if ($params == null) {
         $params=\Route::current()->parameters();
@@ -141,12 +78,15 @@ Form::macro('bsOpen', function ($model, $from, $to='', $params = null, $formName
     .method_field($method);
 });
 
+
+
 Form::macro('bsBtnCrud', function ($extra) {
     $btns='';
     $btns.=Form::bsBtnEdit($extra);
     $btns.=Form::bsBtnDelete($extra);
     return $btns;
 });
+
 Form::macro('bsBtnEdit', function ($extra, $from='index', $to='edit') {
     $user=\Auth::user();
     if($user==null) return '';
@@ -174,7 +114,7 @@ Form::macro('bsBtnEdit', function ($extra, $from='index', $to='edit') {
 });
 
 
-Form::macro('bsBtnClone', function ($extra, $from='index', $to='edit' /*$to='replicate' */) {
+Form::macro('bsBtnClone', function ($extra, $from='index', $to='edit' ) {
     $params=\Route::current()->parameters();
     $params=array_merge($params, $extra);
     $params['replicate']=1;
@@ -210,11 +150,6 @@ Form::macro('bsBtnDelete', function ($extra) {
     Theme::add('theme/bc/sweetalert2/dist/sweetalert2.min.css');
     Theme::add('extend::js/btnDeleteX2.js');
 
-    /*-- sweet alert 1 --
-    Theme::add('/theme/bc/sweetalert/dist/sweetalert.css');
-    Theme::add('/theme/bc/sweetalert/dist/sweetalert.min.js');
-    Theme::add('/theme/js/btnDeleteX.js');
-    */
     $class='btn btn-small btn-danger';
     if (isset($extra['class'])) {
         $class.=' '.$extra['class'];
@@ -294,10 +229,10 @@ Form::macro('bsBtnUpDown',function ($extra){
 Form::macro('bsBtnCreate', function ($extra=[]) {
     $user=\Auth::user();
     if($user==null) return '';
-    //*
+    
     $params=\Route::current()->parameters();
     
-    //*/
+    
      //---default var ---
     $row=last($params);
     $txt='Nuova ';
@@ -365,6 +300,6 @@ Form::macro('bsBtnCreateRelated', function ($parz) {
      <i class="fa fa-plus fa-fw" aria-hidden="true"></i>&nbsp;'.$txt.'</a>';
     
 });
-
+//*/
 
 @endphp

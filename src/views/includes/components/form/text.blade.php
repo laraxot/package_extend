@@ -1,9 +1,12 @@
 @php
-	$label=isset($attributes['label'])?$attributes['label']:trans($lang.'.'.$name);
-	$placeholder=trans($lang.'.'.$name.'_placeholder');
-@endphp
+	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
+	$placeholder=trans($view.'.field.'.$name.'_placeholder');
 
-@component($blade_component,compact('name','value','attributes','lang','comp_view'))
+@endphp
+{{-- [{{  \Route::currentRouteName() }}] container0.create --}}
+{{-- {{ $view_name }} extend::includes.components.form.text --}}
+{{--{{ $view }}--}}
+@component($blade_component,compact('name','value','attributes','comp_view'))
 	@slot('label')
 		{{ Form::label($name, $label , ['class' => 'control-label']) }}
 	@endslot

@@ -286,6 +286,12 @@ trait ServiceProviderTrait
         return $rc->getNamespaceName();
     }
 
+    public static function getPath(){
+        $reflector = new \ReflectionClass(__CLASS__);
+        $fn = $reflector->getFileName();
+        return dirname($fn);      
+    }
+
     //end getNamespace
 
     public function getMenuXml()

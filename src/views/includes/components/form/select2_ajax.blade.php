@@ -3,8 +3,8 @@
 	if(isset($attributes['label']))
 		$label=$attributes['label'];
 	else
-		$label=trans($lang.'.'.$name);
-	$placeholder=trans($lang.'.'.$name.'_placeholder');
+		$label=trans($view.'.field.'.$name);
+	$placeholder=trans($view.'.field.'.$name.'_placeholder');
 	$ajaxurl=url($attributes['ajaxurl'])
 @endphp
 <div class="form-group{{ $errors->has($name) ? ' has-error' : '' }}">
@@ -18,5 +18,5 @@
 			<strong>{{ $errors->first($name) }}</strong>
 		</span>
 	@endif
-	<small class="form-text text-muted">{{ trans($lang.'.'.$name.'_help') }} </small>
+	<small class="form-text text-muted">{{ trans($view.'.field.'.$name.'_help') }} </small>
 </div>

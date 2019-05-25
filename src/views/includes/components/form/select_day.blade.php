@@ -1,6 +1,6 @@
 @php
-	$label=isset($attributes['label'])?$attributes['label']:trans($lang.'.'.$name);
-	$placeholder=trans($lang.'.'.$name.'_placeholder');
+	$label=isset($attributes['label'])?$attributes['label']:trans($view.'.field.'.$name);
+	$placeholder=trans($view.'.field.'.$name.'_placeholder');
 	$dayOfWeek= \Carbon\Carbon::now()->dayOfWeek;
 
 	$daynames=[
@@ -21,5 +21,5 @@
 			<strong>{{ $errors->first($name) }}</strong>
 		</span>
 	@endif
-	<small class="form-text text-muted">{{ trans($lang.'.'.$name.'_help') }} </small> 
+	<small class="form-text text-muted">{{ trans($view.'.field.'.$name.'_help') }} </small> 
 </div>
