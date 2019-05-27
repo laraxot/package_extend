@@ -3,6 +3,7 @@ namespace XRA\Extend\Traits;
 
 //use Artisan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 //-------- services -----
 use XRA\Blog\Models\Post;
 //-------- models ------
@@ -21,9 +22,7 @@ trait CrudContainerItemTrait
     }
     */
 
-    public function getModel()
-    {
-
+    public function getModel(){
         $namespace=get_class($this);
         //$rc = new \ReflectionClass(\get_class($this));
         //$namespace = $rc->getNamespaceName();
@@ -353,10 +352,10 @@ trait CrudContainerItemTrait
                 $pivot_var = [];
             }
             $related_type=collect(config('xra.model'))->search(get_class($row));
+            $types=Str::plural($related_type);
             $pivot_var['related_type']=$related_type;
-            //$pivot_var['type']= $second_last->post_type.'_x_'.$row->post_type; //retrocompatibilità iniziamo a toglierla
-            //ddd($row);
             $pivot=$second_last->morphRelated($row->getModel())->attach($row->post_id,$pivot_var);
+            $tmp=$second_last->$types()->save($row);
         }
         
 
