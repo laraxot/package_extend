@@ -37,20 +37,20 @@
 
 
 {!! Theme::showScripts(false) !!}
-<script> 
+<script>
 	$(function() {
 		$( "#sortable" ).sortable({
 			placeholder: "ui-state-highlight",
 			update: function (event, ui) {
 				var $list =  $(this).sortable("toArray").join("|");
-				//var sortable_data = $(this).sortable('serialize'); 
+				//var sortable_data = $(this).sortable('serialize');
 				//alert(sortable_data);// non va
 				//alert(list); //funziona
 				$('input[name="order_list"]').val($list);
 				/*
 				 $.ajax({   url: "/persistListOrder.php",
-                                      data: { 
-                                                  'section':this.id,              
+                                      data: {
+                                                  'section':this.id,
                                                   'components': list
                                             }
                                   });
@@ -58,5 +58,13 @@
 			}
 		});
 		$( "#sortable" ).disableSelection();
+
+
+
+		$(document).on('submit','form',function(){
+				location.reload();
+		});
+
+
 	});
 </script>
