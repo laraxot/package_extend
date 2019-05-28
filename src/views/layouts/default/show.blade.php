@@ -43,7 +43,13 @@
 	],
 	['row'=>$row,'show_type'=>$show_type]
 )
-@includeFirst(['pub_theme::layouts.partials.breadcrumb','extend::layouts.partials.breadcrumb'])
+@includeFirst(
+	[
+		$view_default.'.breadcrumb.'.$show_type,
+		'pub_theme::layouts.partials.breadcrumb',
+		'extend::layouts.partials.breadcrumb'
+	]
+)
 @if(is_array($tabs))
 	@includeFirst(
 		[
