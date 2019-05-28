@@ -158,9 +158,13 @@ trait CrudSimpleTrait
 
     public function show(Request $request)
     {
-        //die('['.__LINE__.']['.__FILE__.']');
+        
         $params = \Route::current()->parameters();
         $model = $this->getModel();
+        if (\method_exists($model, 'getWith')) {
+            $with=$model->getWith();
+            $model=$model->with($with); //con il with 11 con il load 26 senza 24
+        }
         if (!isset($params[$this->getPrimaryKey()])) {
             $msg = '';
             $msg .= '<h3>Primary key non trovata in params</h3>';
