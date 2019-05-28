@@ -1,4 +1,4 @@
-//$(function() {	
+//$(function() {
 jQuery(document).ready(function($){
 //$(document).ready(function(){
 	var modal_callback='';
@@ -12,7 +12,7 @@ jQuery(document).ready(function($){
 
 	$('#myModalAjax').on('show.bs.modal', function (event)  {
 		 /*$(this).find('.modal-dialog').css({width:'auto',
-								   height:'auto', 
+								   height:'auto',
 								  'max-height':'100%'});
 		*/
 		var loading='<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>';
@@ -45,10 +45,10 @@ jQuery(document).ready(function($){
 			eval(modal_callback);
 		}
 		//*/
-		modal.find('#myModalLabel').text('loading..');
-		modal.find('.form-msg').html('');
-		modal.find('.modal-body').html('<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
-
+		// modal.find('#myModalLabel').text('loading..');
+		// modal.find('.form-msg').html('');
+		// modal.find('.modal-body').html('<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
+		location.reload();
 	});
 	function ajaxLink(data,modal){
 		var loading='<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>';
@@ -95,10 +95,9 @@ jQuery(document).ready(function($){
 				}
 				modal.find('.form-msg').html(err);
 			});
-			
+
 			//alert('preso !');
 		});
 	}
 
 });
-

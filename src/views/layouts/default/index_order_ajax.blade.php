@@ -58,13 +58,5 @@
 			}
 		});
 		$( "#sortable" ).disableSelection();
-
-
-
-		$(document).on('submit','form',function(){
-				location.reload();
-		});
-
-
 	});
 </script>
