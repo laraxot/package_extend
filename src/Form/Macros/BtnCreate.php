@@ -1,7 +1,7 @@
 <?php
 namespace XRA\Extend\Form\Macros;
-//use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
+//use Illuminate\Http\Request;
 
 use Collective\Html\FormFacade as Form;
 
