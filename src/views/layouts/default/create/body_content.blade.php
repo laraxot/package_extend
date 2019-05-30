@@ -14,6 +14,11 @@
 			</ul>
 		</div>
 		@endif
-		@includeFirst([$view.'.form',$view_default.'.form.'.$edit_type])
+		@includeFirst(
+			[
+				$view.'.form',
+				$view_default.'.form.'.$edit_type
+			]
+		)
 	</div>
 </div>

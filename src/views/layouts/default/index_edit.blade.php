@@ -79,7 +79,12 @@
 			<section class="restaurants-page">
 				<div class="container">
 					<div class="row">
-						@includeFirst([$view_default.'.'.$view_body,$view_extend.'.'.$view_body])
+						@includeFirst(
+							[
+								$view_default.'.'.$view_body,
+								$view_extend.'.'.$view_body,
+							]
+						)
 					</div>
 				</div>
 			</section>

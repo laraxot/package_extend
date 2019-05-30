@@ -11,7 +11,13 @@
 {{-- 111 query 11 sec --}}
 {{-- --}}
 @foreach($rows as $key=>$row)
-	@includeFirst([$item_view,$item_view_default],['key'=>$key,'row'=>$row])
+	@includeFirst(
+		[
+			$item_view,
+			$item_view_default
+		],
+		['key'=>$key,'row'=>$row]
+	)
 @endforeach
 {{ $rows->links('pub_theme::layouts.partials.pagination') }}
 {{-- --}}
