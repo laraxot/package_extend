@@ -20,8 +20,14 @@ class simpleRating{
   }
 
   init(){
+    let $val=($(this.obj).val());
     var html='<div class="simple-rating star-rating">';
-    for(var i=0;i<5;i++){html+='<i class="fa fa-star-o" data-rating="'+(i+1)+'"></i>';}
+    for(var i=0;i<$val;i++){
+      html+='<i class="fa fa-star" data-rating="'+(i+1)+'"></i>';
+    }
+    for(var i=$val;i<5;i++){
+      html+='<i class="fa fa-star-o" data-rating="'+(i+1)+'"></i>';
+    }
     html+='</div>';
   
     $(this.obj)

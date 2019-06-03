@@ -416,6 +416,9 @@ trait CrudContainerItemTrait
             $route_next=str_replace('.index_edit','.index',$routename);
             return redirect()->route($route_next,$params);
         }
+        if($request->getMethod()=='POST'){
+            $res= $this->indexUpdate($request);
+        }
         list($container,$item)=$this->params2ContainerItem($params);
         $n_container=count($container);
         $n_item=count($item);
@@ -426,6 +429,33 @@ trait CrudContainerItemTrait
         $rows=$rows->paginate(20);
         $roots = Post::getRoots();
         return ThemeService::view()->with('rows',$rows)->with($roots);
+    }
+
+    public function indexUpdate(Request $request){
+        $data=$request->all();
+        $model=$this->getModel(); //Rating
+        //ddd($model);
+        $params = \Route::current()->parameters();
+        list($container,$item)=$this->params2ContainerItem($params);
+        $n_container=count($container);
+        $n_item=count($item);
+
+        $types=str_plural($container[$n_container-1]->post_type);
+        $types=camel_case($types);
+        $rows=$item[$n_item-1]->$types();
+
+        foreach($data as $k=>$v){
+            if(is_array($v)){
+                foreach($v as $k1 => $v1){
+                    //$row=$rows->where('ratings.post_id',$k1)->first();
+                    $row=$model->where('post_id',$k1)->first();
+                    $row->update([$k=>$v1]);
+
+                }
+            }
+        }
+        //ddd($data);
+        //ddd($rows->get());
     }
 
     public function indexOrder(Request $request){

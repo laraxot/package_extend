@@ -13,6 +13,7 @@
 	
 	//ddd($row->linkable);
 	//ddd($parent_tabs);
+	/*
 	$view_body='';
 	if(\View::exists($view.'.left') || \View::exists($view_default.'.left.'.$edit_type) ) {
 		$view_body.='left_';
@@ -21,6 +22,7 @@
 	if(\View::exists($view.'.right') || \View::exists($view_default.'.right.'.$edit_type) ) {
 		$view_body.='_right';
 	}
+	*/
 
 	//$rows=$row->archive()->paginate(10);
 	//$items=$rows

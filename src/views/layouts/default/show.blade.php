@@ -19,7 +19,7 @@
 	if($show_type==null && is_object($second_last)){
 		$show_type=snake_case($second_last->post_type);
 	}
-
+	/*
 	$view_body='';
 	if(\View::exists($view.'.left') || \View::exists($view_default.'.left.'.$show_type) ) {
 		$view_body.='left_';
@@ -28,6 +28,7 @@
 	if(\View::exists($view.'.right') || \View::exists($view_default.'.right.'.$show_type) ) {
 		$view_body.='_right'; 
 	}
+	*/
 @endphp
 
 @if(isset($step)) 

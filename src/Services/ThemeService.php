@@ -1270,6 +1270,18 @@ class ThemeService
             \View::share('view', $view);
         });
 
+        $row_type=snake_case($row->post_type);
+        $parent_type=snake_case($second_last->post_type);
+
+        $view_body='';
+        if(\View::exists($view.'.left') || \View::exists($view_default.'.left.'.$row_type) ) {
+            $view_body.='left_';
+        }
+        $view_body.='body';
+        if(\View::exists($view.'.right') || \View::exists($view_default.'.right.'.$row_type) ) {
+            $view_body.='_right';
+        }
+
         $theView = view($view_work)
             ->with('row', $row)  //dipende dal tipo di crud
             ->with('second_last',$second_last)
@@ -1278,6 +1290,8 @@ class ThemeService
             ->with($params)
             //->with($roots)  // dipende dal tipo di crud
             ->with('view', $view)
+            ->with('view_body',$view_body)
+            ->with('row_type',$row_type)
             ->with('view_default',$view_default)
             ->with('view_extend',$view_extend)
             ->with('routename', $routename);

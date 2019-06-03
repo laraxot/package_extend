@@ -16,7 +16,7 @@
 	}
 
 
-
+	/*
 	$view_body='';
 	if(\View::exists($view.'.left') || \View::exists($view_default.'.left.'.$edit_type) ) {
 		$view_body.='left_';
@@ -25,7 +25,8 @@
 	if(\View::exists($view.'.right') || \View::exists($view_default.'.right.'.$edit_type) ) {
 		$view_body.='_right';
 	}
-
+	*/
+	
 @endphp
 @include('extend::includes.components')
 @include('extend::includes.flash')
