@@ -87,7 +87,7 @@ class ThemeService
     public static function get_langs($params)
     {
         $uri=(\Request::has('uri'))?\Request::input('uri'):$_SERVER['REQUEST_URI'];
-        
+
         $cache_key=str_slug($uri.'_langs');
         $langs=Cache::get($cache_key);
         if(!is_array($langs)) $langs=[];
@@ -379,12 +379,12 @@ class ThemeService
 
         $str = 'https://';
         if (starts_with($path, $str)) {
-            return $path; 
+            return $path;
         }
-        
+
         $str = 'http://';
         if (starts_with($path, $str)) {
-            return $path; 
+            return $path;
         }
 
         $ns = self::getNameSpace($path);
@@ -1081,7 +1081,7 @@ class ThemeService
 
 
         $view = strtolower($pack).'::'.\implode('.', $path);
-       
+
         /*
         if($pack=='frontend'){
             $pack='pub_theme';
@@ -1182,7 +1182,7 @@ class ThemeService
             $routename = \Route::current()->getName();
             $routename_arr=explode('.',$routename);
             $act=last($routename_arr);
-            
+
             $view1='pub_theme::layouts.default.'.$act;  //magari fare un check if in_admin
             if(!\View::exists($view1)){
                 echo '<h3>'.\Route::currentRouteAction().'</h3>';
@@ -1231,7 +1231,7 @@ class ThemeService
             if(!\View::exists($view_default)){
                 echo('<h3>view ['.$view.'] and ['.$view_default.'] not esists</h3>['.__LINE__.']['.__FILE__.']');
                 echo '<h3> pub_theme ['.config('xra.pub_theme').']</h3>';
-                ddd('add missing template');  
+                ddd('add missing template');
             }
             $use_default=true;
         }
@@ -1239,19 +1239,19 @@ class ThemeService
         if (\View::exists($view)) {
             $view_work=$view;
         }elseif(\View::exists($view_default)){
-            $view_work=$view_default; 
+            $view_work=$view_default;
         }elseif(\View::exists($view_extend)){
             $view_work=$view_extend;
         }else{
             echo('<h3>view ['.$view.'] and ['.$view_default.'] and ['.$view_extend.'] not esists</h3>['.__LINE__.']['.__FILE__.']');
             echo '<h3> pub_theme ['.config('xra.pub_theme').']</h3>';
-            ddd('add missing template');  
+            ddd('add missing template');
         }
 
         $row = last($params);
         $n_params=count($params);
         if($n_params>1){
-            $second_last = collect(\array_slice($params, -2))->first(); //penultimo 
+            $second_last = collect(\array_slice($params, -2))->first(); //penultimo
         }else{
             $second_last = null;
         }
@@ -1270,8 +1270,15 @@ class ThemeService
             \View::share('view', $view);
         });
 
-        $row_type=snake_case($row->post_type);
-        $parent_type=snake_case($second_last->post_type);
+        if(is_object($row)){
+            $row_type=snake_case($row->post_type);
+            $parent_type=snake_case($second_last->post_type);
+        }else{
+            $row_type = '';
+            $parent_type = '';
+        }
+
+        // $parent_type=snake_case($second_last->post_type);
 
         $view_body='';
         if(\View::exists($view.'.left') || \View::exists($view_default.'.left.'.$row_type) ) {
@@ -1325,7 +1332,7 @@ class ThemeService
                 preg_match_all($pattern,$route_info->uri,$matches);
                 $parz=[];
                 //ddd($row->guid); //deve esserci, controllare che nel modello non ci sia function getGuidAttribute, e che ci sia
-                //  linkedTrait 
+                //  linkedTrait
                 foreach($matches[1] as $match){
                     if(isset($params[$match])){
                         $parz[$match]=$params[$match];
@@ -1335,10 +1342,10 @@ class ThemeService
                 }
                 return redirect()->route($routename, $parz);
                 break;
-            case 'save_close': 
+            case 'save_close':
                 $routename = $routename_base.'.index';
                 if(\Route::has($routename.'_edit')){
-                    return redirect()->route($routename.'_edit', $params);    
+                    return redirect()->route($routename.'_edit', $params);
                 }
                 return redirect()->route($routename, $params);
                 break;
@@ -1354,7 +1361,7 @@ class ThemeService
                 break;
         }//end switch
     }//end function
-    
+
     public static function cache(/*ViewContract $vc,*/$view,$data=[], $mergeData=[]){
         //scopiazzato da spatie partialcache
         $cache_key=str_slug($view).'-'.md5(json_encode($data));
@@ -1370,13 +1377,13 @@ class ThemeService
             $html=(string)\View::make($view, $data, $mergeData)->render();
         }
         return $html;
-    } 
+    }
 
 
     public static function imageSrc($params){
         extract($params);
         $path=self::asset($path);
-        return $path; // ci mette troppo nel server 
+        return $path; // ci mette troppo nel server
         //ddd($path);
         $parz=['src'=>$path,'height'=>$height,'width'=>$width];
         $img=new ImageService($parz);
