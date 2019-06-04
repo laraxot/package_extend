@@ -519,6 +519,8 @@ trait CrudSimpleTrait
         $model = $this->getModel();
         $table = $model->getTable();
         $data = $request->all();
+        //ddd(get_class($model));
+        //ddd($data); tipo_commissioni
         if (\method_exists($model, 'validate')) {
             $res = $model->validate($data);
         }
@@ -559,6 +561,8 @@ trait CrudSimpleTrait
         }
         //*/
         $row->save();
+
+        $row->update($data);  //senza questo non mi prende i mutators che son importanti .. in teoria potrei eliminare la cosa sopra
         //$row->update($request->all());
         
         if ('model' == $request->_out) {
