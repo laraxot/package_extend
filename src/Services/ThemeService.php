@@ -1269,7 +1269,9 @@ class ThemeService
         \View::composer('*', function($view1) use($view){
             \View::share('view', $view);
         });
-
+        $row_type=is_object($row)?snake_case($row->post_type):'';
+        $parent_type=is_object($second_last)?snake_case($second_last->post_type):'';
+        /*
         if(is_object($row)){
             $row_type=snake_case($row->post_type);
             $parent_type=snake_case($second_last->post_type);
@@ -1277,6 +1279,7 @@ class ThemeService
             $row_type = '';
             $parent_type = '';
         }
+        */
 
         // $parent_type=snake_case($second_last->post_type);
 
