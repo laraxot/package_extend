@@ -348,7 +348,7 @@ trait CrudContainerItemTrait
         $second_last = collect(\array_slice($params, -2))->first(); //penultimo
         
         if (\is_object($second_last) && $n_params>=2) { // da verificare il > x
-            ddd('a');
+            
             $pivot_var = $request->pivot;
             if (!\is_array($pivot_var)) {
                 $pivot_var = [];
