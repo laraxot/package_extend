@@ -323,11 +323,12 @@ trait CrudContainerItemTrait
     public function store(Request $request){
         $params = \Route::current()->parameters();
         $routename = \Route::current()->getName();
-        
-        if($request->_action=='exit'){
+        /*
+        if($request->_action=='exit'){ //il request qui gia' darebbe noie
             $route_next = \str_replace('.store', '.index_edit', $routename);// da testare
             return redirect()->route($route_next, $params);
         }
+        */
 
         $params = \Route::current()->parameters();
         $n_params = \count($params);
@@ -347,6 +348,7 @@ trait CrudContainerItemTrait
         $second_last = collect(\array_slice($params, -2))->first(); //penultimo
         
         if (\is_object($second_last) && $n_params>=2) { // da verificare il > x
+            ddd('a');
             $pivot_var = $request->pivot;
             if (!\is_array($pivot_var)) {
                 $pivot_var = [];
