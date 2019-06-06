@@ -420,6 +420,16 @@ trait CrudContainerItemTrait
         }
         if($request->getMethod()=='POST'){
             $res= $this->indexUpdate($request);
+            if (\Request::ajax()) {
+                $response = [
+                    'success' => true,
+                    //'data'    => $result,
+                    'message' => 'OK',
+                ];
+                //$response = \array_merge($data, $response);
+
+                return response()->json($response, 200);
+            }
         }
         list($container,$item)=$this->params2ContainerItem($params);
         $n_container=count($container);
