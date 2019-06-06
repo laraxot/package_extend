@@ -1,21 +1,46 @@
 @php
-	//https://food.local/it/restaurant/pizza-gioia/rating/edit
-	//$restaurant_curr=collect($params)->where('type','restaurant')->last();
-	//ddd($second_last);
-	//ddd($second_last->myRatings);
-//[{{ $second_last->index_update_url }}]
+	$tabs=$row->tabs;
+	$parent_tabs=$row->parent_tabs;
+	$edit_type=snake_case($row->post_type);
 @endphp
-{!! Form::bsOpen($second_last,'index_update') !!}
+@include('extend::includes.components')
+@include('extend::includes.flash')
+@include('extend::modal_ajax')
+	
+	@includeFirst(
+					[
+						$view.'.header',
+						$view_default.'.header.'.$edit_type,
+						$view_extend.'.header.'.$edit_type,
+						$view_default.'.header',
+						$view_extend.'.header'
+					],
+					['edit_type'=>$edit_type]
+				)
+	
+	<section class="restaurants-page">
+		<div class="container">
+			<div class="row">
 
-@foreach($second_last->ratingObjectives as $i_rating)
-	@php
-		$rates=$second_last->ratings->where('post_id',$i_rating->post_id);
-		$rating_avg=$rates->avg('pivot.rating');
-		$rating_count=$rates->count();
-	@endphp
-
-	{{ Form::bsRatingStar('my_rating['.$i_rating->post_id.']',null,['label'=>$i_rating->title]) }}
-
-@endforeach
-{{Form::bs3Submit('Aggiungi')}}
-{!! Form::close() !!}
+				@includeFirst(
+					[
+						$view_default.'.'.$view_body,
+						$view_extend.'.'.$view_body,
+					]
+				)
+				
+			</div>
+		</div> 
+	</section>
+	
+	@includeFirst(
+					[
+						$view.'.footer',
+						$view_default.'.footer.'.$edit_type,
+						$view_extend.'.footer.'.$edit_type,
+						$view_default.'.footer',
+						$view_extend.'.footer'
+					],
+					['edit_type'=>$edit_type]
+				)
+	
