@@ -6,38 +6,14 @@
 @include('extend::includes.components')
 @include('extend::includes.flash')
 @include('extend::modal_ajax')
-	@includeFirst(
-					[
-						$view.'.header',
-						$view_default.'.header.'.$edit_type,
-						$view_extend.'.header.'.$edit_type,
-						$view_default.'.header',
-						$view_extend.'.header'
-					],
-					['edit_type'=>$edit_type]
-				)
+{!! Theme::include('header',['edit_type'=>$row_type],get_defined_vars() ) !!}
+<section class="restaurants-page">
+	<div class="container">
+		<div class="row">
+			{!! Theme::include($view_body,[],get_defined_vars() ) !!}
+		</div>
+	</div> 
+</section>
+{!! Theme::include('footer',['edit_type'=>$row_type],get_defined_vars() ) !!}
 	
-	<section class="restaurants-page">
-		<div class="container">
-			<div class="row">
-				@includeFirst(
-					[
-						$view_default.'.'.$view_body,
-						$view_extend.'.'.$view_body,
-					]
-				)
-			</div>
-		</div> 
-	</section>
-	
-	@includeFirst(
-					[
-						$view.'.footer',
-						$view_default.'.footer.'.$edit_type,
-						$view_extend.'.footer.'.$edit_type,
-						$view_default.'.footer',
-						$view_extend.'.footer'
-					],
-					['edit_type'=>$edit_type]
-				)
 	

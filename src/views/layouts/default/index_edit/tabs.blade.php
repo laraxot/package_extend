@@ -1,5 +1,6 @@
 <div class="menu-rest">
 	@php
+		if(!is_array($tabs)) return ;
 		//$tabs=['restaurant','cuisineCat'];
 		$current_tab=$row->post_type;
 		//ddd($view);

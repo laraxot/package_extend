@@ -35,9 +35,6 @@
 					<div class="row">
 						{!! Theme::include('header',['edit_type'=>$row_type],get_defined_vars() ) !!}
 						{!! Theme::include($view_body,[],get_defined_vars() ) !!}
-						{{--						  
-						@includeFirst([$view_default.'.'.$view_body,$view_extend.'.'.$view_body])
-						--}}
 						{!! Theme::include('footer',['edit_type'=>$row_type],get_defined_vars() ) !!}
 					</div>
 				</div>
