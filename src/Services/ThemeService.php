@@ -1302,6 +1302,7 @@ class ThemeService
             ->with('view', $view)
             ->with('view_body',$view_body)
             ->with('row_type',$row_type)
+            ->with('parent_type',$parent_type)
             ->with('view_default',$view_default)
             ->with('view_extend',$view_extend)
             ->with('routename', $routename);
@@ -1396,4 +1397,31 @@ class ThemeService
         return asset($ris);
     }
 
+
+    public static function include($view_tpl,$params_tpl,$vars){
+       //dd(get_defined_vars());
+        //ddd($vars);
+        //ddd(\Illuminate\View\View::getData());
+       //ddd(\View::getData());
+        extract($vars);
+        $views=[
+            $view.'.'.$view_tpl.'',
+            $view_default.'.'.$view_tpl.'.'.$row_type,
+            $view_extend.'.'.$view_tpl.'.'.$row_type,
+            $view_default.'.'.$view_tpl.'',
+            $view_extend.'.'.$view_tpl.''
+        ];
+        
+        foreach($views as $view_check){
+            if(View::exists($view_check)){
+                return view($view_check)->with($vars)->with($params_tpl); // quale delle 2 ?
+                // return (string)\View::make($view_check, $params_tpl, $vars)->render();
+                //
+                break;
+            }    
+        }
+        ddd('not exists ['.implode(']'.chr(13).'[',$views).']');
+        
+        
+    }
 }//end class
