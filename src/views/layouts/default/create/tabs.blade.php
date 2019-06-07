@@ -1,6 +1,7 @@
 <div class="menu-rest">
 	@php
 		//$tabs=['restaurant','cuisineCat'];
+		if(!is_array($tabs)) return ;
 		$current_tab=$row->post_type;
 		//ddd($view);
 		$trad=str_replace($row->post_type.'.edit',$row->post_type,$view);
@@ -17,29 +18,29 @@
 		@foreach($tabs as $k=>$tab)
 		@php
 			switch($routename){
-				case 'container0.edit':
-					$route=route('container0.container1.index_edit',array_merge($params,['container1'=>$tab]));
+				case 'container0.create':
+					$route=route('container0.container1.create',array_merge($params,['container1'=>$tab]));
 				break;
-				case 'container0.container1.edit':
-					//$route=route('container0.container1.container2.index_edit',array_merge($params,['container2'=>$tab]));
-					$route='#';
+				case 'container0.container1.create':
+					$route=route('container0.container1.container2.create',array_merge($params,['container2'=>$tab]));
+					//$route='#';
 				break;
 				default:
 					ddd($routename);
-				break; 
+				break;
 			}
-			
-		@endphp 
+
+		@endphp
 		<li class="nav-item">
 			<a class="nav-link btn btn-secondary {{ $tab==$current_tab?'active':'' }}" href="{{ $route }}" role="tab" aria-controls="pills-menu" aria-selected="{{ $tab==$current_tab?'true':'false' }}">
 				@lang($trad.'.tab.'.$tab)
 				<span class="badge pull-right">
 					<i class="fa fa-pencil"></i>
 				</span>
-			</a> 
+			</a>
 				{{-- [{{ $current_tab }}] --}}
 		</li>
-		@endforeach 
+		@endforeach
 	</ul>
 	<div class="tab-content" id="pills-tabContent">
 		<div class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-menu-tab">
