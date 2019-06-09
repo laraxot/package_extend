@@ -1,14 +1,16 @@
 <div class="menu-rest">
 	@php
+		if(!is_array($tabs)) return ;
 		//$tabs=['restaurant','cuisineCat'];
 		$current_tab=$row->post_type;
 		$trad=str_replace(''.$row->post_type.'.show',$row->post_type,$view);
 		//ddd($trad);
 	@endphp
-	<ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+	<ul itemprop="WebPageElement" itemscope itemtype="http://schema.org/SiteNavigationElement" class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist" >
 		<li class="nav-item">
-			<a class="nav-link active" href="{{ $row->show }}">
-				@lang($trad.'.tab.content')
+			<meta itemprop="url" content="{{ $row->show }}" />
+			<a class="nav-link active" href="{{ $row->show }}" >
+				<span itemprop="name">@lang($trad.'.tab.content')</span>
 			</a>
 		</li>
 		@foreach($tabs as $k=>$tab)
@@ -32,8 +34,9 @@
 			}
 			
 		@endphp 
-		<li class="nav-item">
-			<a class="nav-link {{ $tab==$current_tab?'active':'' }}" href="{{ $route }}" role="tab" aria-controls="pills-menu" aria-selected="{{ $tab==$current_tab?'true':'false' }}">@lang($trad.'.tab.'.$tab)</a> 
+		<li class="nav-item" >
+			<meta itemprop="url" content="{{ $route }}" />
+			<a class="nav-link {{ $tab==$current_tab?'active':'' }}"  href="{{ $route }}" role="tab" aria-controls="pills-menu" aria-selected="{{ $tab==$current_tab?'true':'false' }}" ><span itemprop="name">@lang($trad.'.tab.'.$tab)</span></a> 
 				{{-- [{{ $current_tab }}] --}}
 		</li>
 		@endforeach 

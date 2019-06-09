@@ -1368,7 +1368,7 @@ class ThemeService
 
     public static function cache(/*ViewContract $vc,*/$view,$data=[], $mergeData=[]){
         //scopiazzato da spatie partialcache
-        $cache_key=str_slug($view).'-'.md5(json_encode($data));
+        $cache_key=str_slug($view).'-'.md5(json_encode($data)).'-1';
         $data['lang']=\App::getLocale();
         $seconds=60*60*24;
         try{

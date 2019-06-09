@@ -24,6 +24,9 @@
 				 		<meta itemprop="position" content="{{ $k+2 }}" />
 					</li>
         		@endif
+        		{{--
+        		{!! $location->listItemSchemaOrg(['position'=>3]) !!}
+        		--}}
         	@endforeach
         	@php
         		$routename=Route::currentRouteName();
