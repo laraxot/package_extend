@@ -329,8 +329,7 @@ class ImportService
         return (string) $body;
     }
 
-    public static function getAddressFields($params)
-    {
+    public static function getAddressFields($params){
         \extract($params);
         $linked = new \stdClass();
         $location_url = config('bing.url_location_api').'?query='.\urlencode($address).'&maxResults=5&key='.config('bing.maps_key');
@@ -339,9 +338,10 @@ class ImportService
         $loc_obj = \json_decode($loc_json);
         if (isset($loc_obj->results[0])) {
             $loc_obj = $loc_obj->results[0];
+           //ddd($loc_obj->address_components);
             foreach ($loc_obj->address_components as $addr) {
                 //echo '<br/>'.$addr->post_types[0].'  '.$addr->long_name.'  '.$addr->short_name;
-                $sk = $addr->post_types[0];
+                $sk = $addr->types[0];
                 $linked->$sk = $addr->long_name;
                 $sk .= '_short';
                 $linked->$sk = $addr->short_name;
