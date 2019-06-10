@@ -1,3 +1,4 @@
+{{--
 @if(\View::exists($view_default.'.inner_page.'.$edit_type) )
 	@include($view_default.'.inner_page.'.$edit_type)
 @else
@@ -6,3 +7,4 @@
 	<!-- end:Container -->
 </div>
 @endif
+--}}
