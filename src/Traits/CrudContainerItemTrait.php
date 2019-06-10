@@ -232,7 +232,15 @@ trait CrudContainerItemTrait
         if(is_array($pivot_var) && isset($row->pivot) ){ 
             $row->pivot->update($pivot_var);
         }
-        
+        //ddd($row->getFillable());
+        /*
+        */
+        if(isset($row->fillableRelationship) && is_array($row->fillableRelationship) ){
+            $intersects=collect(array_keys($data))->intersect($row->fillableRelationship)->all();
+            foreach($intersects as $intersect){
+                $place=$row->$intersect()->updateOrCreate([],$data[$intersect]);
+            }
+        }
         if (isset($data['linked']) && \is_array($data['linked'])) { //-- Linked Data
             $post->update($data['linked']);
         }
@@ -344,6 +352,15 @@ trait CrudContainerItemTrait
         $row=$model->create($data);
         //ddd($row); // bisogna controllare se post_id e' creato
         $post=$row->post()->create($data);
+
+        if(isset($row->fillableRelationship) && is_array($row->fillableRelationship) ){
+            $intersects=collect(array_keys($data))->intersect($row->fillableRelationship)->all();
+            foreach($intersects as $intersect){
+                $place=$row->$intersect()->create($data[$intersect]);
+            }
+        }
+
+
         //ddd($post);
         $second_last = collect(\array_slice($params, -2))->first(); //penultimo
         
