@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Request;
 use Collective\Html\FormFacade as Form;
 //----- models -----
 //----- services -----
+//----- services -----
+use XRA\Extend\Services\ThemeService;
 //----- traits -----
 
 class BtnClone{
