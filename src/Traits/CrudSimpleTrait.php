@@ -564,7 +564,7 @@ trait CrudSimpleTrait
         $data=collect($data)->except(['_token','_method'])->all();
         $fillable=$row->getFillable();
         if(is_array($fillable) && count($fillable)>1){
-            $data=collect($data)->only($fillable);
+            $data=collect($data)->only($fillable)->all();
         }
         $row->update($data);  //senza questo non mi prende i mutators che son importanti .. in teoria potrei eliminare la cosa sopra
         //$row->update($request->all());
