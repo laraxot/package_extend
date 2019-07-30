@@ -722,16 +722,8 @@ trait CrudSimpleTrait
                 ->with('view', $view)
                 ->with('params', $params);
         //return $content;
-        try {
-            $html2pdf = new Html2Pdf('L', 'A4', 'it');
-            $html2pdf->pdf->SetDisplayMode('fullpage');
-            $html2pdf->writeHTML($content->__toString());
-            $html2pdf->Output();
-        } catch (HTML2PDF_exception $e) {
-            echo '<pre>';
-            \print_r($e);
-            echo '</pre>';
-        }
+        HtmlService::toPdf(['html'=>(string)$content]);
+        
     }
 
     //end pdf
@@ -815,19 +807,7 @@ trait CrudSimpleTrait
         ];
         return HtmlService::toPdf($parz);  //testing se qualcosa va male si toglie
 
-        try {
-            $html2pdf = new Html2Pdf($pdforientation, 'A4', 'it');
-            $html2pdf->pdf->SetDisplayMode('fullpage');
-            $html2pdf->writeHTML($content->__toString());
-            if ('content_PDF' == $out) {
-                return $html2pdf->Output($row->id.'.pdf', 'S');
-            }
-            $html2pdf->Output();
-        } catch (HTML2PDF_exception $e) {
-            echo '<pre>';
-            \print_r($e);
-            echo '</pre>';
-        }
+       
     }
 
     //-------------------------------------------------------------------------------------------

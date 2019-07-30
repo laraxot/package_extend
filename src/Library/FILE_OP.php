@@ -246,7 +246,7 @@ class FILE_OP
                 echo '<i class="fa fa-file-excel-o fa-2x"></i>';
                 break;
             case 'pdf':
-                echo '<i class="fa fa-file-pdf-o fa-2x"></i>';
+                echo '<i class="far fa-file-pdf fa-2x"></i>';
                 break;
             case 'doc':
                 echo '<i class="fa fa-file-word-o fa-2x"></i>';
