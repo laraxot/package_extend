@@ -1,0 +1,116 @@
+git-lfs/2.9.2 (GitHub; windows amd64; go 1.12.7; git 0274d856)
+Error getting git version: Error running C:\Program Files\Git\mingw64\libexec\git-core\git.exe 'version': 'fatal: version doesn't support --super-prefix' 'exit status 128'
+
+$ git-lfs.exe filter-process
+Error downloading object: src/views/includes/components/form/html5_upload/images/original.jpg (89dbaaa): Smudge error: Error downloading src/views/includes/components/form/html5_upload/images/original.jpg (89dbaaaa09b99e7621b20079142e3cea32999a540b56030b3a4786eb30c32af1): batch request: missing protocol: ""
+
+missing protocol: ""
+batch request
+github.com/git-lfs/git-lfs/errors.newWrappedError
+	d:/a/git-lfs/git-lfs/errors/types.go:198
+github.com/git-lfs/git-lfs/errors.Wrap
+	d:/a/git-lfs/git-lfs/errors/errors.go:74
+github.com/git-lfs/git-lfs/tq.(*tqClient).Batch
+	d:/a/git-lfs/git-lfs/tq/api.go:68
+github.com/git-lfs/git-lfs/tq.Batch
+	d:/a/git-lfs/git-lfs/tq/api.go:40
+github.com/git-lfs/git-lfs/tq.(*TransferQueue).enqueueAndCollectRetriesFor
+	d:/a/git-lfs/git-lfs/tq/transfer_queue.go:520
+github.com/git-lfs/git-lfs/tq.(*TransferQueue).collectBatches.func1
+	d:/a/git-lfs/git-lfs/tq/transfer_queue.go:432
+runtime.goexit
+	C:/Go1.12.7/src/runtime/asm_amd64.s:1337
+Error downloading src/views/includes/components/form/html5_upload/images/original.jpg (89dbaaaa09b99e7621b20079142e3cea32999a540b56030b3a4786eb30c32af1)
+github.com/git-lfs/git-lfs/errors.newWrappedError
+	d:/a/git-lfs/git-lfs/errors/types.go:198
+github.com/git-lfs/git-lfs/errors.Wrapf
+	d:/a/git-lfs/git-lfs/errors/errors.go:85
+github.com/git-lfs/git-lfs/lfs.(*GitFilter).downloadFile
+	d:/a/git-lfs/git-lfs/lfs/gitfilter_smudge.go:115
+github.com/git-lfs/git-lfs/lfs.(*GitFilter).Smudge
+	d:/a/git-lfs/git-lfs/lfs/gitfilter_smudge.go:76
+github.com/git-lfs/git-lfs/commands.smudge
+	d:/a/git-lfs/git-lfs/commands/command_smudge.go:127
+github.com/git-lfs/git-lfs/commands.filterCommand
+	d:/a/git-lfs/git-lfs/commands/command_filter_process.go:118
+github.com/spf13/cobra.(*Command).execute
+	go/pkg/mod/github.com/spf13/cobra@v0.0.3/command.go:766
+github.com/spf13/cobra.(*Command).ExecuteC
+	go/pkg/mod/github.com/spf13/cobra@v0.0.3/command.go:852
+github.com/spf13/cobra.(*Command).Execute
+	go/pkg/mod/github.com/spf13/cobra@v0.0.3/command.go:800
+github.com/git-lfs/git-lfs/commands.Run
+	d:/a/git-lfs/git-lfs/commands/run.go:97
+main.main
+	d:/a/git-lfs/git-lfs/git-lfs.go:33
+runtime.main
+	C:/Go1.12.7/src/runtime/proc.go:200
+runtime.goexit
+	C:/Go1.12.7/src/runtime/asm_amd64.s:1337
+Smudge error
+github.com/git-lfs/git-lfs/errors.newWrappedError
+	d:/a/git-lfs/git-lfs/errors/types.go:198
+github.com/git-lfs/git-lfs/errors.NewSmudgeError
+	d:/a/git-lfs/git-lfs/errors/types.go:284
+github.com/git-lfs/git-lfs/lfs.(*GitFilter).Smudge
+	d:/a/git-lfs/git-lfs/lfs/gitfilter_smudge.go:85
+github.com/git-lfs/git-lfs/commands.smudge
+	d:/a/git-lfs/git-lfs/commands/command_smudge.go:127
+github.com/git-lfs/git-lfs/commands.filterCommand
+	d:/a/git-lfs/git-lfs/commands/command_filter_process.go:118
+github.com/spf13/cobra.(*Command).execute
+	go/pkg/mod/github.com/spf13/cobra@v0.0.3/command.go:766
+github.com/spf13/cobra.(*Command).ExecuteC
+	go/pkg/mod/github.com/spf13/cobra@v0.0.3/command.go:852
+github.com/spf13/cobra.(*Command).Execute
+	go/pkg/mod/github.com/spf13/cobra@v0.0.3/command.go:800
+github.com/git-lfs/git-lfs/commands.Run
+	d:/a/git-lfs/git-lfs/commands/run.go:97
+main.main
+	d:/a/git-lfs/git-lfs/git-lfs.go:33
+runtime.main
+	C:/Go1.12.7/src/runtime/proc.go:200
+runtime.goexit
+	C:/Go1.12.7/src/runtime/asm_amd64.s:1337
+
+Current time in UTC: 
+2020-01-14 09:21:35
+
+ENV:
+LocalWorkingDir=
+LocalGitDir=
+LocalGitStorageDir=
+LocalMediaDir=lfs\objects
+LocalReferenceDirs=
+TempDir=lfs\tmp
+ConcurrentTransfers=3
+TusTransfers=false
+BasicTransfersOnly=false
+SkipDownloadErrors=false
+FetchRecentAlways=false
+FetchRecentRefsDays=7
+FetchRecentCommitsDays=0
+FetchRecentRefsIncludeRemotes=true
+PruneOffsetDays=3
+PruneVerifyRemoteAlways=false
+PruneRemoteName=origin
+LfsStorageDir=lfs
+AccessDownload=none
+AccessUpload=none
+DownloadTransfers=basic,lfs-standalone-file
+UploadTransfers=basic,lfs-standalone-file
+GIT_ASKPASS=C:\Program Files\TortoiseGit\bin\SshAskPass.exe
+GIT_ASK_YESNO=C:\Program Files\TortoiseGit\bin\SshAskPass.exe
+GIT_DIR=F:/xampp/htdocs/lara/ptv/.git/modules/laravel/packages/XRA/Extend
+GIT_EXEC_PATH=C:/Program Files/Git/mingw64/libexec/git-core
+GIT_INTERNAL_SUPER_PREFIX=laravel/packages/XRA/Extend/
+GIT_LFS_PATH=C:\Program Files\Git LFS
+GIT_PREFIX=
+GIT_SSH=C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe
+GIT_SSH_VARIANT=ssh
+
+Client IP addresses:
+fe80::446a:f752:e8d1:e845 10.18.1.123
+fe80::a14b:750e:61f5:8b22 192.168.56.1
+fe80::ddfe:553c:22b3:38e0 172.31.64.33
+fe80::d8:725:faf1:678f 172.30.176.1

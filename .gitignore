@@ -1,0 +1,5 @@
+
+src/_menuxml/admin/_menufull\.xml
+/.git-ftp-ignore
+/.git
+/src/views/includes/components/form/algolia/bc/algolia-autocomplete.js/*.lock
